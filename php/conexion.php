@@ -1,6 +1,6 @@
 <?php
 $host="localhost";
-$user="root";
+$user="";
 $password="";
 $db="myapp";
 $con = new mysqli($host,$user,$password,$db);
