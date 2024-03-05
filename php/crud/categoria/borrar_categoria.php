@@ -16,6 +16,7 @@ try {
   $sentencia = $conexion->prepare($consultaSQL);
   $sentencia->execute();
 
+  $_SESSION['vista'] = "categorias";
   header('Location: ../../../home.php');
 
 } catch(PDOException $error) {

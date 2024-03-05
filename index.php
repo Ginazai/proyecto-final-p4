@@ -31,7 +31,6 @@ $logout_url = "logout.php";
 			<li><i class="glyphicon glyphicon-ok"></i> Facil de instalar y modificar</li>
 			<li><i class="glyphicon glyphicon-ok"></i> Ideal para tu proximo proyecto web</li>
 			</ul>
-
 	</div>
 	</div>
 	</div>

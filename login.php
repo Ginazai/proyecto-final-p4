@@ -1,11 +1,14 @@
-<?php session_start(); ?>
-<html>
-	<head>
-		<title>Formulario de Registro</title>
-		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-	</head>
-	<body>
-	<?php include "php/navbar.php"; ?>
+<?php session_start();
+include "php/head_resources.php";
+//navbar url variable path
+$index_url = "index.php";
+$home_url = "home.php";
+$ticket_url = "php/crud/ticket/crear_ticket.php";
+$user_url = "php/crud/usuario/crear_usuario.php";
+$category_url = "php/crud/categoria/crear_categoria.php";
+$logout_url = "logout.php"; 
+include "php/navbar.php"; 
+?>
 <div class="container">
 <div class="row">
 <div class="col-md-6">
@@ -21,7 +24,7 @@
 		    <input type="password" class="form-control" id="password" name="password" placeholder="Contrase&ntilde;a">
 		  </div>
 
-		  <button type="submit" class="btn btn-default">Acceder</button>
+		  <button type="submit" class="btn btn-primary">Acceder</button>
 		</form>
 </div>
 </div>
