@@ -6,7 +6,7 @@ if(!empty($_POST)){
 			
 			include "conexion.php";
 
-			$role = 2;
+			$default_role = 2;
 			$found=false;
 			$sql1= "select * from user where username=\"$_POST[username]\" or email=\"$_POST[email]\"";
 			$query = $con->query($sql1);
@@ -17,8 +17,10 @@ if(!empty($_POST)){
 			if($found){
 				print "<script>alert(\"Nombre de usuario o email ya estan registrados.\");window.location='../registro.php';</script>";
 			}
-			$sql = "insert into user(username,fullname,email,password,created_at, role) value (\"$_POST[username]\",\"$_POST[fullname]\",\"$_POST[email]\",\"$_POST[password]\",NOW(),$role)";
+			$sql = "insert into user(username,fullname,email,password,created_at) value (\"$_POST[username]\",\"$_POST[fullname]\",\"$_POST[email]\",\"$_POST[password]\",NOW())";
+			$role_sql = "insert into users_roles value ($default_role)";
 			$query = $con->query($sql);
+			$query = $con->query($role_sql);
 			if($query!=null){
 				print "<script>alert(\"Registro exitoso. Proceda a logearse\");window.location='../login.php';</script>";
 			}

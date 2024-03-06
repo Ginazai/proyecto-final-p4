@@ -16,15 +16,22 @@ if (isset($_POST['submit'])) {
       "fullname"   => $_POST['fullname'],
       "username" => $_POST['username'],
       "email"    => $_POST['email'],
-      "password"    => $_POST['password'],
-      "role"    => $_POST['role']
+      "password"    => $_POST['password']
     ];
 
-    $consultaSQL = "INSERT INTO user (fullname, username, email, password, role)";
+    $consultaSQL = "INSERT INTO user (fullname, username, email, password)";
     $consultaSQL .= "values (:" . implode(", :", array_keys($usuario)) . ")";
 
     $sentencia = $conexion->prepare($consultaSQL);
     $sentencia->execute($usuario);
+
+    /**
+     * @joint roles a usuarios
+     * **/
+    $stmt = $conexion->prepare("INSERT INTO users_roles VALUES(:uid, :rid)");
+    $stmt->execute(array(
+      ':uid' = $
+    ));
 
   } catch(PDOException $error) {
     $resultado['error'] = true;

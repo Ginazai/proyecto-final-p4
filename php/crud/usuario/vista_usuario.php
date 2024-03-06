@@ -16,6 +16,33 @@ try {
   $sentencia->execute();
 
   $usuarios = $sentencia->fetchAll();
+  /**
+   * consultar roles de usuario
+   * **/
+  $role_id = null;
+  if($usuarios && $sentencia->rowCount() > 0){
+    foreach($usuarios as $row){
+      $user_id = $row['id'];
+
+      $consultaRoles = "SELECT * FROM users_roles WHERE user_id = $user_id";
+      $sentencia2 = $conexion->prepare($consultaRoles);
+      $sentencia2->execute();
+
+      while($r=$sentencia2->fetch(PDO::FETCH_ASSOC)) {
+        $role_id = $r['role_id'];
+
+        $query_role = "SELECT role FROM roles WHERE id = $role_id";
+        $sentencia3 = $conexion->prepare($query_role);
+        $sentencia3->execute();
+
+        while($r2=$sentencia3->fetch(PDO::FETCH_ASSOC)) {
+          $role_name = $r2['role'];
+          break;
+        }
+        break;
+      }
+    }
+  }
 
 } catch(PDOException $error) {
   $error= $error->getMessage();
@@ -70,7 +97,7 @@ if ($error) {
                 <td><?php echo $fila["username"]; ?></td>
                 <td><?php echo $fila["email"]; ?></td>
                 <td><?php echo $fila["password"]; ?></td>
-                <td><?php echo $fila["role"]; ?></td>
+                <td><?php echo $role_name; ?></td>
                 <td>
                   <a href="<?= 'php/crud/usuario/borrar_usuario.php?id=' . $fila["id"] ?>">🗑️Borrar</a>
                   <a href="<?= 'php/crud/usuario/editar_usuario.php?id=' . $fila["id"] ?>">✏️Editar</a>

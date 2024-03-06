@@ -12,7 +12,13 @@ if(!empty($_POST)){
 				$query = $con->query($sql1);
 				while ($r=$query->fetch_array()) {
 					$user_id=$r["id"];
-					$user_role=$r["role"];
+
+					$sql2= "select * from users_roles where (user_id=$user_id)";	
+					$query = $con->query($sql2);
+						while ($r2=$query->fetch_array()){
+							$user_role=$r2['role_id'];
+							break;
+						}
 					break;
 				}
 				if($user_id==null){
