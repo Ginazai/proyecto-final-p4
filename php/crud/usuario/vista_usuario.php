@@ -73,7 +73,7 @@ if ($error) {
             //roles selection
             foreach ($usuarios as $fila) {
               //prevent user from editing himself
-              //if($fila['id'] == $_SESSION['user_id']) {continue;}
+              if($fila['id'] == $_SESSION['user_id']) {continue;}
               ?>
               <tr>
                 <td><?php echo $fila["id"]; ?></td>

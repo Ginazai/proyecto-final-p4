@@ -8,12 +8,8 @@ $user_url = "php/crud/usuario/crear_usuario.php";
 $category_url = "php/crud/categoria/crear_categoria.php";
 $logout_url = "php/logout.php";
 ?>
-<html>
-	<head>
-		<title>.: RLPHP :.</title>
-		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-	</head>
-	<body>
+
+	<?php require_once "php/head_resources.php"; ?>
 	<?php include "php/navbar.php"; ?>
 	<div class="container">
 	<div class="row">

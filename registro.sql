@@ -9,6 +9,19 @@ create table user(
 	password varchar(255) not null,
 	created_at datetime not null
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+---------------------------------------------
+CREATE TABLE session(
+	id int not null auto_increment primary key,
+	user_id int not null,
+
+	CONSTRAINT fkuser_id_session
+	FOREIGN KEY (user_id)
+	REFERENCES user (id)
+	ON DELETE CASCADE ON UPDATE CASCADE,
+
+	is_active boolean not null,
+	last_activity datetime not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 --------------------------------------------
 CREATE TABLE roles(
 	id int not null auto_increment primary key,

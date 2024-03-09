@@ -11,7 +11,7 @@ echo(
   	      		<option value='usuarios'>Usuarios</option>
   	      		<option value='categorias'>Categorias</option>
   	      	</select>
-  	      	<button class='form-control btn btn-primary mt-3' type='submit'>Filtrar</button>
+  	      	<button class='form-control btn btn-default mt-3' type='submit'>Filtrar</button>
         	</div>
   	    <hr>
         </form>
@@ -22,7 +22,7 @@ echo(
         	<div class='form-group mr-3'>
             <input type='text' id='$vista' name='$vista' placeholder='Buscar $vista' class='form-control'>
           </div>
-          <button type='submit' name='submit' class='btn btn-primary'>Ver resultados</button>
+          <button type='submit' name='submit' class='btn btn-default'>Ver resultados</button>
         </form>
       </div>
     </div>

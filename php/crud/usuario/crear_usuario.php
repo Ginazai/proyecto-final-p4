@@ -141,8 +141,8 @@ if (isset($resultado)) {
           <input type="password" name="password" id="password" class="form-control">
         </div>
         <div class="form-group">
-          <input type="submit" name="submit" class="btn btn-primary" value="Enviar">
-          <a class="btn btn-primary" href="<?= $index_url ?>">Regresar al inicio</a>
+          <input type="submit" name="submit" class="btn btn-default" value="Enviar">
+          <a class="btn btn-default" href="<?= $index_url ?>">Regresar al inicio</a>
         </div>
       </form>
     </div>

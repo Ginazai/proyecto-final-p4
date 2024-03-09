@@ -1,4 +1,5 @@
-<nav class="navbar navbar-default" role="navigation">
+<header class="container">
+<nav class="navbar navbar-inverse box-shadow" role="navigation" style="margin-top: 8px;">
 <div class="container">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
@@ -31,3 +32,4 @@
   </div><!-- /.navbar-collapse -->
 </div>
 </nav>
+</header>
