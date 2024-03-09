@@ -75,7 +75,7 @@ if (isset($resultado)) {
         </div>
         <div class="form-group">
           <input type="submit" name="submit" class="btn btn-primary" value="Enviar">
-          <a class="btn btn-primary" href="<?= $home_url ?>">Regresar al inicio</a>
+          <a class="btn btn-primary" href="<?= $index_url ?>">Regresar al inicio</a>
         </div>
       </form>
     </div>

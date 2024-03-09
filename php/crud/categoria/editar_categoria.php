@@ -113,7 +113,7 @@ if (isset($categoria) && $categoria) {
           <input class="form-control mb-3" type="text" name="categoria" ></input>
           <div class="form-group">
             <input type="submit" name="submit" class="btn btn-primary" value="Actualizar">
-            <a class="btn btn-primary" href="../../../home.php">Regresar al inicio</a>
+            <a class="btn btn-primary" href="../../../index.php">Regresar al inicio</a>
           </div>
         </form>
       </div>

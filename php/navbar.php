@@ -8,7 +8,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="<?= $index_url ?>"><b>Helpdesk</b></a>
+    <a class="navbar-brand" href="<?= $home_url ?>"><b>Helpdesk</b></a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,8 +17,8 @@
       <?php if(!isset($_SESSION["user_id"])):?>
       <li><a href="./registro.php">REGISTRO</a></li>
       <li><a href="./login.php">LOGIN</a></li>
-    <?php elseif($_SESSION['role'] == 1):?>
-      <li><a href="<?= $home_url  ?>">Inicio</a></li>
+    <?php elseif(in_array(1, $_SESSION['role'])):?>
+      <li><a href="<?= $index_url  ?>">Inicio</a></li>
       <li><a href="<?= $ticket_url  ?>">Crear ticket</a></li>
       <li><a href="<?= $user_url  ?>">Crear usuario</a></li>
       <li><a href="<?= $category_url ?>">Crear categoria</a></li>

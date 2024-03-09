@@ -7,16 +7,16 @@ if(!empty($_POST)){
 				include "conexion.php";
 			
 				$user_id=null;
-				$user_role=null;
-				$sql1= "select * from user where (username=\"$_POST[username]\" or email=\"$_POST[username]\") and password=\"$_POST[password]\" ";
+				$user_role=array();
+				$sql1= "select * from user, roles where (username=\"$_POST[username]\" or email=\"$_POST[username]\") and password=\"$_POST[password]\" ";
 				$query = $con->query($sql1);
 				while ($r=$query->fetch_array()) {
 					$user_id=$r["id"];
 
-					$sql2= "select * from users_roles where (user_id=$user_id)";	
+					$sql2= "select * from user_roles where (user_id=$user_id)";	
 					$query = $con->query($sql2);
 						while ($r2=$query->fetch_array()){
-							$user_role=$r2['role_id'];
+							array_push($user_role, $r2['role_id']);
 							break;
 						}
 					break;

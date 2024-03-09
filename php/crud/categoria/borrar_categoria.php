@@ -17,7 +17,7 @@ try {
   $sentencia->execute();
 
   $_SESSION['vista'] = "categorias";
-  header('Location: ../../../home.php');
+  header('Location: ../../../index.php');
 
 } catch(PDOException $error) {
   $resultado['error'] = true;

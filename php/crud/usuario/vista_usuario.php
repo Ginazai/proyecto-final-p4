@@ -19,30 +19,13 @@ try {
   /**
    * consultar roles de usuario
    * **/
-  $role_id = null;
+  
   if($usuarios && $sentencia->rowCount() > 0){
-    foreach($usuarios as $row){
-      $user_id = $row['id'];
-
-      $consultaRoles = "SELECT * FROM users_roles WHERE user_id = $user_id";
-      $sentencia2 = $conexion->prepare($consultaRoles);
-      $sentencia2->execute();
-
-      while($r=$sentencia2->fetch(PDO::FETCH_ASSOC)) {
-        $role_id = $r['role_id'];
-
-        $query_role = "SELECT role FROM roles WHERE id = $role_id";
-        $sentencia3 = $conexion->prepare($query_role);
-        $sentencia3->execute();
-
-        while($r2=$sentencia3->fetch(PDO::FETCH_ASSOC)) {
-          $role_name = $r2['role'];
-          break;
-        }
-        break;
-      }
-    }
+    foreach($usuarios as $usuario){
+      
+    }      
   }
+
 
 } catch(PDOException $error) {
   $error= $error->getMessage();
@@ -87,9 +70,10 @@ if ($error) {
         <tbody>
           <?php
           if ($usuarios && $sentencia->rowCount() > 0) {
+            //roles selection
             foreach ($usuarios as $fila) {
               //prevent user from editing himself
-              if($fila['id'] == $_SESSION['user_id']) {continue;}
+              //if($fila['id'] == $_SESSION['user_id']) {continue;}
               ?>
               <tr>
                 <td><?php echo $fila["id"]; ?></td>
@@ -97,7 +81,24 @@ if ($error) {
                 <td><?php echo $fila["username"]; ?></td>
                 <td><?php echo $fila["email"]; ?></td>
                 <td><?php echo $fila["password"]; ?></td>
-                <td><?php echo $role_name; ?></td>
+                <td>
+                  <?php 
+                  $user_id = $fila['id'];
+
+                  $get_relation = $conexion->prepare("SELECT * FROM user_roles WHERE user_id = :uid");
+                  $get_relation->execute([':uid' => $user_id]);
+                  while($relation_row=$get_relation->fetch(PDO::FETCH_ASSOC)){
+                    $role_id = $relation_row['role_id'];
+
+                    $get_role_name = $conexion->prepare("SELECT role FROM roles WHERE id = :rid");
+                    $get_role_name->execute([':rid' => $role_id]);
+                    $role_names=$get_role_name->fetchAll();
+                    foreach($role_names as $name){
+                      echo($name['role'] . "<br>");
+                    }
+                  }
+                  ?>
+                </td>
                 <td>
                   <a href="<?= 'php/crud/usuario/borrar_usuario.php?id=' . $fila["id"] ?>">🗑️Borrar</a>
                   <a href="<?= 'php/crud/usuario/editar_usuario.php?id=' . $fila["id"] ?>">✏️Editar</a>

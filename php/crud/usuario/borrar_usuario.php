@@ -16,7 +16,8 @@ try {
   $sentencia = $conexion->prepare($consultaSQL);
   $sentencia->execute();
 
-  header('Location: ../../../home.php');
+  $_SESSION['vista'] = "usuarios";
+  header('Location: ../../../index.php');
 
 } catch(PDOException $error) {
   $resultado['error'] = true;
