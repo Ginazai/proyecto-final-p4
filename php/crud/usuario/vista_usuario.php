@@ -6,8 +6,8 @@ try {
   $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
   $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
 
-  if (isset($_POST['apellido'])) {
-    $consultaSQL = "SELECT * FROM user WHERE apellido LIKE '%" . $_POST['apellido'] . "%'";
+  if (isset($_POST['usuarios'])) {
+    $consultaSQL = "SELECT * FROM user WHERE fullname LIKE '%" . $_POST['usuarios'] . "%'";
   } else {
     $consultaSQL = "SELECT * FROM user";
   }

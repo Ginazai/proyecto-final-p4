@@ -6,8 +6,8 @@ try {
   $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
   $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
 
-  if (false) {
-    $consultaSQL = "SELECT * FROM tickets WHERE ticket LIKE '%" . $_POST['ticket'] . "%'";
+  if (isset($_POST['tickets'])) {
+    $consultaSQL = "SELECT * FROM tickets WHERE ticket LIKE '%" . $_POST['tickets'] . "%'";
   } else {
     $consultaSQL = "SELECT * FROM tickets";
   }

@@ -2,15 +2,18 @@ create database myapp;
 use myapp;
 
 create table user(
-	id int not null auto_increment primary key,
+	id int auto_increment primary key not null,
 	fullname varchar(500) not null,
 	username varchar(100) not null unique,
 	email varchar(255) not null unique,
 	password varchar(255) not null,
 	created_at datetime not null
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-ADD
+--------------------------------------------
+CREATE TABLE roles(
+	id int not null auto_increment primary key,
+	role varchar(100)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ---------------------------------------------
 create table user_roles(
 	id int auto_increment primary key not null, 
@@ -28,3 +31,8 @@ create table user_roles(
 		ON DELETE CASCADE
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+---------------------------------------------
+CREATE TABLE categorias(
+	id int auto_increment primary key not null,
+	categoria varchar(50)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

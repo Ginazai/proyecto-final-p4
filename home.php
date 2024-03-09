@@ -6,7 +6,7 @@ $index_url = "index.php";
 $ticket_url = "php/crud/ticket/crear_ticket.php";
 $user_url = "php/crud/usuario/crear_usuario.php";
 $category_url = "php/crud/categoria/crear_categoria.php";
-$logout_url = "logout.php";
+$logout_url = "php/logout.php";
 ?>
 <html>
 	<head>
