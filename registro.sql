@@ -10,18 +10,27 @@ create table user(
 	created_at datetime not null
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ---------------------------------------------
+-- CREATE TABLE session(
+-- 	id int not null auto_increment primary key,
+-- 	user_id int not null,
+
+-- 	CONSTRAINT fkuser_id_session
+-- 	FOREIGN KEY (user_id)
+-- 	REFERENCES user (id)
+-- 	ON DELETE CASCADE ON UPDATE CASCADE,
+
+-- 	is_active boolean not null,
+-- 	last_activity datetime not null
+-- )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--------------------------------------------
 CREATE TABLE session(
 	id int not null auto_increment primary key,
-	user_id int not null,
-
-	CONSTRAINT fkuser_id_session
-	FOREIGN KEY (user_id)
-	REFERENCES user (id)
-	ON DELETE CASCADE ON UPDATE CASCADE,
-
+	username varchar(100) not null,
 	is_active boolean not null,
 	last_activity datetime not null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE session ADD INDEX(username);
 --------------------------------------------
 CREATE TABLE roles(
 	id int not null auto_increment primary key,

@@ -3,6 +3,8 @@ $host="localhost";
 $user="";
 $password="";
 $db="myapp";
-$con = new mysqli($host,$user,$password,$db);
+
+$dsn = "mysql:host=$host;dbname=$db";
+$con = new PDO($dsn, $user, $password);
 
 ?>

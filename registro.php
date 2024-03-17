@@ -37,7 +37,7 @@ include "php/navbar.php";
 		    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirmar Contrase&ntilde;a">
 		  </div>
 
-		  <button type="submit" class="btn btn-primary">Registrar</button>
+		  <button type="submit" class="btn btn-primary my-3">Registrar</button>
 		</form>
 		</div>
 		</div>

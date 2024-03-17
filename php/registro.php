@@ -8,20 +8,26 @@ if(!empty($_POST)){
 
 			$default_role = 2;
 			$found=false;
-			$sql1= "select * from user where username=\"$_POST[username]\" or email=\"$_POST[email]\"";
-			$query = $con->query($sql1);
-			while ($r=$query->fetch_array()) {
+			$sql1= $con->prepare("SELECT * FROM user WHERE username = :uname or email = :em");
+			$sql1->execute([':uname' => $_POST['username'], ':em' => $_POST['email']]);
+			while ($r=$sql1->fetch(PDO::FETCH_ASSOC)) {
 				$found=true;
 				break;
 			}
 			if($found){
 				print "<script>alert(\"Nombre de usuario o email ya estan registrados.\");window.location='../registro.php';</script>";
-			}
-			$sql = "insert into user(username,fullname,email,password,created_at) value (\"$_POST[username]\",\"$_POST[fullname]\",\"$_POST[email]\",\"$_POST[password]\",NOW())";
-			$role_sql = "insert into users_roles value ($default_role)";
-			$query = $con->query($sql);
-			$query = $con->query($role_sql);
-			if($query!=null){
+			}		
+			$sql = $con->prepare("INSERT INTO user(fullname, username, email,password,created_at) VALUES (:fname, :uname, :em, :pwd, :t)");
+			$role_sql = $con->prepare("INSERT INTO user_roles(user_id, role_id) VALUES (:uid, :rid)");
+			$sql->execute([
+				':uname' => $_POST['username'],
+				':fname' => $_POST['fullname'],
+				':em' => $_POST['email'],
+				':pwd' => $_POST['password'],
+				':t' => date("Y-m-d H:i:s")
+			]);
+			$role_sql->execute([':uid' => $con->lastInsertId(), ':rid' => $default_role]);
+			if($sql and $role_sql){
 				print "<script>alert(\"Registro exitoso. Proceda a logearse\");window.location='../login.php';</script>";
 			}
 		}

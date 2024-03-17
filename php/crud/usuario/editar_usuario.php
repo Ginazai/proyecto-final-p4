@@ -158,7 +158,7 @@ if (isset($usuario) && $usuario) {
           </div>
           <div class="form-group">
             <label for="username">Nombre de usuario</label>
-            <input type="text" name="username" id="username" value="<?= $usuario['username'] ?>" class="form-control">
+            <input type="text" name="username" id="username" value="<?= $usuario['username'] ?>" class="form-control" disabled>
           </div>
 
 <!--           <div class="form-group">
