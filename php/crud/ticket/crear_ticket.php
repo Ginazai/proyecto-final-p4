@@ -82,9 +82,9 @@ if (isset($resultado)) {
           <label for="consulta">Consulta</label>
           <textarea class="form-control" id="consulta" name="consulta"></textarea>
         </div>
-        <div class="form-group">
-          <input type="submit" name="submit" class="btn btn-default" value="Enviar">
-          <a class="btn btn-default" href="<?= $index_url ?>">Regresar al inicio</a>
+        <div class="form-group my-3">
+          <input type="submit" name="submit" class="btn btn-dark" value="Enviar">
+          <a class="btn btn-secondary" href="<?= $index_url ?>">Regresar al inicio</a>
         </div>
       </form>
     </div>

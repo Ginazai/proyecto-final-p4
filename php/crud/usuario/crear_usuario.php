@@ -91,16 +91,9 @@ if (isset($resultado)) {
           <input type="text" name="username" id="username" class="form-control">
         </div>
 
-<!--         <div class="form-group">
-          <label for="role">Rol</label>
-          <select class="form-control" name="role">
-            <option disabled selected>Seleccione un rol..</option>
-            <option value="1">Administrator</option>
-            <option value="2">Cliente</option>
-          </select>
-        </div> -->
         <div class="form-group">
           <label>Roles</label><br>
+
           <div class="checkbox-inline">
             <label>
               <input type="checkbox" name="Roles[admin]" value="admin"> Administrador
@@ -140,9 +133,9 @@ if (isset($resultado)) {
           <label for="password">Password</label>
           <input type="password" name="password" id="password" class="form-control">
         </div>
-        <div class="form-group">
-          <input type="submit" name="submit" class="btn btn-default" value="Enviar">
-          <a class="btn btn-default" href="<?= $index_url ?>">Regresar al inicio</a>
+        <div class="form-group my-3">
+          <input type="submit" name="submit" class="btn btn-dark" value="Enviar">
+          <a class="btn btn-secondary" href="<?= $index_url ?>">Regresar al inicio</a>
         </div>
       </form>
     </div>

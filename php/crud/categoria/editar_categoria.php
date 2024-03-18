@@ -109,11 +109,13 @@ if (isset($categoria) && $categoria) {
         <h2 class="mt-4">Editando la categoria: <p class="text-success"><?= $categoria['categoria']  ?></p></h2>
         <hr>
         <form method="post">
-          <label for="categoria">Ingrese el nuevo nombre de <p class="text-success"><?= $categoria['categoria']  ?></p></label>
-          <input class="form-control mb-3" type="text" name="categoria" ></input>
-          <div class="form-group">
-            <input type="submit" name="submit" class="btn btn-primary" value="Actualizar">
-            <a class="btn btn-primary" href="../../../index.php">Regresar al inicio</a>
+          <div class="form-floating">
+            <input class="form-control" type="text" name="categoria" placeholder="Ingrese el nuevo nombre de: <?= $categoria['categoria']  ?>" id="categoria">
+            <label for="categoria">Ingrese el nuevo nombre de: <?= $categoria['categoria']  ?></label>
+          </div>
+          <div class="form-group my-3">
+            <input type="submit" name="submit" class="btn btn-dark" value="Actualizar">
+            <a class="btn btn-secondary" href="../../../index.php">Regresar al inicio</a>
           </div>
         </form>
       </div>

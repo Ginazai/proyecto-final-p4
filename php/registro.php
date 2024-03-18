@@ -15,7 +15,7 @@ if(!empty($_POST)){
 				break;
 			}
 			if($found){
-				print "<script>alert(\"Nombre de usuario o email ya estan registrados.\");window.location='../registro.php';</script>";
+				print "<script>alert(\"Nombre de usuario o email ya estan registrados.\");window.location='../home.php';</script>";
 			}		
 			$sql = $con->prepare("INSERT INTO user(fullname, username, email,password,created_at) VALUES (:fname, :uname, :em, :pwd, :t)");
 			$role_sql = $con->prepare("INSERT INTO user_roles(user_id, role_id) VALUES (:uid, :rid)");
@@ -28,7 +28,7 @@ if(!empty($_POST)){
 			]);
 			$role_sql->execute([':uid' => $con->lastInsertId(), ':rid' => $default_role]);
 			if($sql and $role_sql){
-				print "<script>alert(\"Registro exitoso. Proceda a logearse\");window.location='../login.php';</script>";
+				print "<script>alert(\"Registro exitoso. Proceda a logearse\");window.location='../home.php';</script>";
 			}
 		}
 	}

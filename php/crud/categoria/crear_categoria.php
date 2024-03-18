@@ -65,17 +65,10 @@ if (isset($resultado)) {
         <div class="form-group">
           <label for="categoria">Ingrese una categoria</label>
           <input class="form-control" type="text" name="categoria" ></input>
-<!--           <select name="categoria" class="form-control">
-            <option selected disabled>Seleccione una opcion...</option>
-            <option value="software">Software</option>
-            <option value="hardware">Hardware</option>
-            <option value="mantenimiento preventivo">Mantenimiento preventivo</option>
-            <option value="mantenimiento correctivo">Mantenimiento correctivo</option>
-          </select> -->
         </div>
-        <div class="form-group">
-          <input type="submit" name="submit" class="btn btn-default" value="Enviar">
-          <a class="btn btn-default" href="<?= $index_url ?>">Regresar al inicio</a>
+        <div class="form-group my-3">
+          <input type="submit" name="submit" class="btn btn-dark" value="Enviar">
+          <a class="btn btn-secondary" href="<?= $index_url ?>">Regresar al inicio</a>
         </div>
       </form>
     </div>

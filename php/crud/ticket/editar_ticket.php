@@ -117,25 +117,25 @@ if (isset($ticket) && $ticket) {
         <h2 class="mt-4">Editando el ticket <?= $ticket['ticket'] ?></h2>
         <hr>
         <form method="post">
-          <div class="form-group">
+          <div class="form-floating my-3">
+            <input class="form-control" type="text" name="nombre" placeholder="Nombre" id="nombre" value="<?= $ticket['nombre'] ?>">
             <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" id="nombre" value="<?= $ticket['nombre'] ?>" class="form-control">
           </div>
-          <div class="form-group">
-            <label for="apellido">Apellido</label>
-            <input type="text" name="apellido" id="apellido" value="<?= $ticket['apellido'] ?>" class="form-control">
+          <div class="form-floating my-3">
+            <input type="text" name="apellido" placeholder="Apellido" id="apellido" value="<?= $ticket['apellido'] ?>" class="form-control">
+             <label for="apellido">Apellido</label>
           </div>
-          <div class="form-group">
+          <div class="form-floating my-3">
+            <input type="email" name="email" placeholder="Email" id="email" value="<?= $ticket['email'] ?>" class="form-control">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" value="<?= $ticket['email'] ?>" class="form-control">
           </div>
-          <div class="form-group">
+          <div class="form-floating my-3">
+            <input type="text" name="consulta" placeholder="Consulta" id="consulta" value="<?= $ticket['consulta'] ?>" class="form-control">
             <label for="edad">Consulta</label>
-            <input type="text" name="consulta" id="consulta" value="<?= $ticket['consulta'] ?>" class="form-control">
           </div>
-          <div class="form-group">
-            <input type="submit" name="submit" class="btn btn-primary" value="Actualizar">
-            <a class="btn btn-primary" href="../../../index.php">Regresar al inicio</a>
+          <div class="form-group my-3">
+            <input type="submit" name="submit" class="btn btn-dark" value="Actualizar">
+            <a class="btn btn-secondary" href="../../../index.php">Regresar al inicio</a>
           </div>
         </form>
       </div>

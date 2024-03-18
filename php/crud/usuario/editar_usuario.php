@@ -152,25 +152,16 @@ if (isset($usuario) && $usuario) {
         <h2 class="mt-4">Editando el usuario <?= $usuario['fullname'] ?></h2>
         <hr>
         <form method="post">
-          <div class="form-group">
+          <div class="form-floating my-3">
+            <input type="text" name="fullname" id="fullname" placeholder="Nombre completo" value="<?= $usuario['fullname'] ?>" class="form-control">
             <label for="fullname">Nombre completo</label>
-            <input type="text" name="fullname" id="fullname" value="<?= $usuario['fullname'] ?>" class="form-control">
           </div>
-          <div class="form-group">
+          <div class="form-floating my-3">
+            <input type="text" name="username" id="username" placeholder="Nombre de usuario" value="<?= $usuario['username'] ?>" class="form-control" disabled>
             <label for="username">Nombre de usuario</label>
-            <input type="text" name="username" id="username" value="<?= $usuario['username'] ?>" class="form-control" disabled>
           </div>
 
-<!--           <div class="form-group">
-            <label for="role">Rol</label>
-            <select class="form-control" name="role" value="">
-              <option disabled>Seleccione un rol..</option>
-              <option value="1">Administrator</option>
-              <option value="2">Cliente</option>
-            </select>
-          </div> -->
-
-          <div class="form-group">
+          <div class="form-group my-3">
             <label>Roles</label><br>
             <div class="checkbox-inline">
               <label>
@@ -203,19 +194,19 @@ if (isset($usuario) && $usuario) {
             </div>
           </div>
 
-            <div class="form-group">
+            <div class="form-floating my-3">
+              <input type="email" name="email" id="email" placeholder="Email" value="<?= $usuario['email'] ?>" class="form-control" >
               <label for="email">Email</label>
-              <input type="email" name="email" id="email" value="<?= $usuario['email'] ?>" class="form-control" >
             </div>
 
-            <div class="form-group">
+            <div class="form-floating my-3">
+              <input type="text" name="password" id="password" placeholder="Password" value="<?= $usuario['password'] ?>" class="form-control">
               <label for="password">Password</label>
-              <input type="text" name="password" id="password" value="<?= $usuario['password'] ?>" class="form-control">
             </div>
 
-            <div class="form-group">
-              <input type="submit" name="submit" class="btn btn-primary" value="Actualizar">
-              <a class="btn btn-primary" href="../../../index.php">Regresar al inicio</a>
+            <div class="form-group my-3">
+              <input type="submit" name="submit" class="btn btn-dark" value="Actualizar">
+              <a class="btn btn-secondary" href="../../../index.php">Regresar al inicio</a>
             </div>
           </form>
         </div>
