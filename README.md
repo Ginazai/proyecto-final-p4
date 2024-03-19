@@ -1,5 +1,5 @@
 ![image](https://github.com/Ginazai/proyecto-final-p4/assets/67808421/e6be98b2-fc5a-4f2b-b576-779f99f98468)
-![image](https://github.com/Ginazai/proyecto-final-p4/assets/67808421/f034eddb-4178-4e9b-bfb0-0dd80c5a48b8)
 ![image](https://github.com/Ginazai/proyecto-final-p4/assets/67808421/c55a5460-f1f5-4bbf-986f-a9773532f317)
+![image](https://github.com/Ginazai/proyecto-final-p4/assets/67808421/f034eddb-4178-4e9b-bfb0-0dd80c5a48b8)
 ![image](https://github.com/Ginazai/proyecto-final-p4/assets/67808421/a83a66ce-03cc-4de3-800c-fc1572e48ce5)
 ![image](https://github.com/Ginazai/proyecto-final-p4/assets/67808421/9ffff6e5-7c90-4035-9107-a7e52f8dc654)
