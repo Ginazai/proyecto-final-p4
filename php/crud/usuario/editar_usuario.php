@@ -1,23 +1,46 @@
 <?php
 session_start();
-$config = include '../../config.php';
+$config = include '../../conexion.php';
 
 $resultado = [
   'error' => false,
   'mensaje' => ''
 ];
 
+$last_data = null;
 if (!isset($_GET['id'])) {
   $resultado['error'] = true;
   $resultado['mensaje'] = 'El usuario no existe';
+} else {
+  $id = $_GET['id'];
+  $role_names = array();
+  $users_roles = $con->prepare(
+    "SELECT * FROM user
+    INNER JOIN user_roles ON user.id = user_roles.user_id
+    INNER JOIN roles ON roles.id = user_roles.role_id
+    WHERE user.id = :id");
+  $users_roles->execute([':id' => $id]);
+  $usuarios = $users_roles->fetchAll();
+  $usuario = $usuarios[0];
+  foreach($usuarios as $user){
+    array_push($role_names, $user['role']);
+  }
+
+  $username = $_SESSION['username'];
+  $data_before = array(
+    "fullname" => $usuario['fullname'],
+    "username" => $usuario['username'],
+    "roles" => $role_names,
+    "email" => $usuario['email'],
+    "password" => $usuario['password']
+  );
 }
 
 if (isset($_POST['submit'])) {
   try {
-    $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
-    $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
+    $id = $_GET['id'];
 
-    $consulta = $conexion->prepare("UPDATE user SET fullname = :fn, username = :un,
+    $consulta = $con->prepare("UPDATE user SET fullname = :fn, username = :un,
       email = :em, password = :pw WHERE id = :id");
     $consulta->execute(array(
       ':id' => $_GET['id'],
@@ -27,17 +50,17 @@ if (isset($_POST['submit'])) {
       ':pw' => $_POST['password']
     ));
 
-    $update_role_query1 = $conexion->prepare("DELETE FROM user_roles WHERE user_id = :uid");
+    $update_role_query1 = $con->prepare("DELETE FROM user_roles WHERE user_id = :uid");
     $update_role_query1->execute(array(':uid' => $_GET['id']));
 
     if(isset($_POST['Roles'])){
       foreach($_POST['Roles'] as $role){
-        $select_role = $conexion->prepare("SELECT id FROM roles WHERE role = :role");
+        $select_role = $con->prepare("SELECT id FROM roles WHERE role = :role");
         $select_role->execute([":role" => $role]);
         $selected_row = $select_role->fetch(PDO::FETCH_ASSOC);
         $selected_id = $selected_row['id'];
 
-        $reinsert_role_query = $conexion->prepare("INSERT INTO user_roles (user_id, role_id)
+        $reinsert_role_query = $con->prepare("INSERT INTO user_roles (user_id, role_id)
           VALUES (:uid, :rid)");
         $reinsert_role_query->execute([
           ":uid" => $_GET['id'],
@@ -45,58 +68,57 @@ if (isset($_POST['submit'])) {
         ]);
       }
     }
+  /**
+   * Update data after every update
+   * */
+  $role_names = array();
+  $data_change = $con->prepare("
+    SELECT * FROM user
+    INNER JOIN user_roles ON user_roles.user_id = user.id
+    INNER JOIN roles ON user_roles.role_id = roles.id
+    WHERE user.id = :uid");
+  $data_change->execute([':uid' => $id]);
+  $usuarios = $data_change->fetchAll();
+  $usuario = $usuarios[0];
+  foreach($usuarios as $user){
+    array_push($role_names, $user['role']);
+  }
+
+  $data_after = array(
+    "fullname" => $usuario['fullname'],
+    "username" => $usuario['username'],
+    "roles" => $role_names,
+    "email" => $usuario['email'],
+    "password" => $usuario['password']
+  );
+  $_SESSION['data_after'] = $data_after; 
+  /**
+   * Verify if an update was made, if not, delete the row
+   * */
+  $change = false;
+  for($x=0;$x<count($data_after);$x++){
+    $before_keys = array_keys($data_before);
+    $after_keys = array_keys($data_after);
+    if($data_before[$before_keys[$x]] != $data_after[$after_keys[$x]]){
+      $change = true;
+    }
+  }
+  echo(var_dump($change) . "<br>");
+  if($change){
+    $data_update = $con->prepare("
+      INSERT INTO data_trace ( username, _before, _after, _date ) 
+      VALUES ( :uname, :bf, :af, NOW() )");
+    $data_update->execute([
+      ':uname' => $_SESSION['username'],
+      ':bf' => json_encode($data_before),
+      ':af' =>  json_encode($data_after)
+    ]);
+  }
 
   } catch(PDOException $error) {
     $resultado['error'] = true;
     $resultado['mensaje'] = $error->getMessage();
   }
-}
-
-try {
-  $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
-  $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
-    
-  $id = $_GET['id'];
-
-  $sentencia = $conexion->prepare("SELECT * FROM user WHERE id = :id");
-  $sentencia->execute(array(
-    ':id' => $id
-  ));
-  $usuario = $sentencia->fetch(PDO::FETCH_ASSOC); /**@return selected user*/
-
-  /**
-   * Search for all the user roles
-   * */
-  $roles=array();
-  $role_names=array();
-  $role_query = $conexion->prepare("SELECT * FROM user_roles WHERE user_id = :uid");
-  $role_query->execute(array(
-    ':uid' => $id
-  ));
-  while($role_row=$role_query->fetch(PDO::FETCH_ASSOC)){
-    array_push($roles, $role_row['role_id']);
-  }
-  /**
-   * Get the name from the roles DB
-   * */
-  foreach($roles as $role){
-    $role_query2 = $conexion->prepare("SELECT role FROM roles WHERE id = :rid");
-    $role_query2->execute(array(
-      ':rid' => $role
-    ));
-    $role_name = $role_query2->fetch(PDO::FETCH_ASSOC);
-    $role_name = $role_name['role'];
-    array_push($role_names, $role_name);
-  }
-  
-  if (!$usuario) {
-    $resultado['error'] = true;
-    $resultado['mensaje'] = 'No se ha encontrado el usuario';
-  }
-
-} catch(PDOException $error) {
-  $resultado['error'] = true;
-  $resultado['mensaje'] = $error->getMessage();
 }
 
 //navbar url variable path
@@ -134,7 +156,7 @@ if (isset($_POST['submit']) && !$resultado['error']) {
     <div class="row">
       <div class="col-md-12">
         <div class="alert alert-success" role="alert">
-          El usuario ha sido actualizado correctamente
+          El usuario <?= isset($_SESSION['data_after']) ? var_dump($_SESSION['data_after']) : ""?> ha sido actualizado correctamente
         </div>
       </div>
     </div>
@@ -151,13 +173,14 @@ if (isset($usuario) && $usuario) {
       <div class="col-md-12">
         <h2 class="mt-4">Editando el usuario <?= $usuario['fullname'] ?></h2>
         <hr>
+        <?= var_dump($_SESSION['data_after']) ?>
         <form method="post">
           <div class="form-floating my-3">
             <input type="text" name="fullname" id="fullname" placeholder="Nombre completo" value="<?= $usuario['fullname'] ?>" class="form-control">
             <label for="fullname">Nombre completo</label>
           </div>
           <div class="form-floating my-3">
-            <input type="text" name="username" id="username" placeholder="Nombre de usuario" value="<?= $usuario['username'] ?>" class="form-control" disabled>
+            <input type="text" name="username" id="username" placeholder="Nombre de usuario" value="<?= $usuario['username'] ?>" class="form-control" readonly="readonly">
             <label for="username">Nombre de usuario</label>
           </div>
 
@@ -212,6 +235,7 @@ if (isset($usuario) && $usuario) {
         </div>
       </div>
     </div>
+    <script type="application/javascript" src="../../../js/script.js"></script>
   <?php
 }
 ?>

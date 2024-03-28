@@ -48,44 +48,44 @@
       </div>
     </nav>
 </header>
-
-<!---------------------------------------------- Sign Modal ---------------------------------------------->
-<div class="modal fade" id="sign-modal" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header bg-dark">
-        <h1 class="modal-title fs-5 text-white" id="modal-label">Registrate</h1>
+<?= isset($_SESSION['user_id']) ? "" : 
+"<!---------------------------------------------- Sign Modal ---------------------------------------------->
+<div class='modal fade' id='sign-modal' tabindex='-1' aria-labelledby='modal-label' aria-hidden='true'>
+  <div class='modal-dialog modal-dialog-centered'>
+    <div class='modal-content'>
+      <div class='modal-header bg-dark'>
+        <h1 class='modal-title fs-5 text-white' id='modal-label'>Registrate</h1>
       </div>
-      <div class="modal-body">
-        <div class="container-fluid justify-content-center form-signin">
+      <div class='modal-body'>
+        <div class='container-fluid justify-content-center form-signin'>
     <!--------------------------Sign-up Form -------------------------->
-          <form id="registro" class="row g-3" role="form" name="registro" action="php/registro.php" method="post">
+          <form id='registro' class='row g-3' role='form' name='registro' action='php/registro.php' method='post'>
 
-            <div class="col-12 form-floating">
-                <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Nombre Completo">
-                <label for="fullname">Nombre Completo</label>
+            <div class='col-12 form-floating'>
+                <input type='text' class='form-control' id='fullname' name='fullname' placeholder='Nombre Completo'>
+                <label for='fullname'>Nombre Completo</label>
             </div>
 
-            <div class="col-12 form-floating">
-              <input type="text" class="form-control" id="username" name="username" placeholder="Nombre de usuario">
-              <label for="username">Nombre de usuario</label>
-            </div>
-
-
-            <div class="col-12 form-floating">
-              <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electronico">
-               <label for="email">Correo Electronico</label>
+            <div class='col-12 form-floating'>
+              <input type='text' class='form-control' id='username' name='username' placeholder='Nombre de usuario'>
+              <label for='username'>Nombre de usuario</label>
             </div>
 
 
-            <div class="col-12 form-floating">
-              <input type="password" class="form-control" id="password" name="password" placeholder="Contrase&ntilde;a">
-               <label for="password">Contrase&ntilde;a</label>
+            <div class='col-12 form-floating'>
+              <input type='email' class='form-control' id='email' name='email' placeholder='Correo Electronico'>
+               <label for='email'>Correo Electronico</label>
             </div>
 
-            <div class="col-12 form-floating">
-              <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirmar Contrase&ntilde;a">
-              <label for="confirm_password">Confirmar Contrase&ntilde;a</label>
+
+            <div class='col-12 form-floating'>
+              <input type='password' class='form-control' id='password' name='password' placeholder='Contrase&ntilde;a'>
+               <label for='password'>Contrase&ntilde;a</label>
+            </div>
+
+            <div class='col-12 form-floating'>
+              <input type='password' class='form-control' id='confirm_password' name='confirm_password' placeholder='Confirmar Contrase&ntilde;a'>
+              <label for='confirm_password'>Confirmar Contrase&ntilde;a</label>
             </div>
           </form>
 
@@ -93,43 +93,43 @@
         </div>
       </div>
 
-      <div class="modal-footer bg-dark">
+      <div class='modal-footer bg-dark'>
         <form>
-          <button type="submit" form="registro" class="btn btn-info">Registrarse</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type='submit' form='registro' class='btn btn-info'>Registrarse</button>
+          <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
         </form>
       </div>
     </div>
   </div>
 </div>
 <!---------------------------------------------- Log in Modal ---------------------------------------------->
-<div class="modal fade" id="log-modal" tabindex="-1" aria-labelledby="label" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header bg-dark">
-        <h1 class="modal-title fs-5 text-white" id="label">Ingresar</h1>
+<div class='modal fade' id='log-modal' tabindex='-1' aria-labelledby='label' aria-hidden='true'>
+  <div class='modal-dialog modal-dialog-centered'>
+    <div class='modal-content'>
+      <div class='modal-header bg-dark'>
+        <h1 class='modal-title fs-5 text-white' id='label'>Ingresar</h1>
       </div>
-      <div class="modal-body">
-        <div class="form-signin justify-content-center container-fluid">
+      <div class='modal-body'>
+        <div class='form-signin justify-content-center container-fluid'>
 
-          <form id="login-form" class="row g-3" role="form" name="login-form" action="php/login.php" method="post">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="username" name="username" placeholder="Nombre de usuario">
-              <label class="form-label" for="username">Nombre de usuario o email</label>
+          <form id='login-form' class='row g-3' role='form' name='login-form' action='php/login.php' method='post'>
+            <div class='form-floating'>
+              <input type='text' class='form-control' id='username' name='username' placeholder='Nombre de usuario'>
+              <label class='form-label' for='username'>Nombre de usuario o email</label>
             </div>
-            <div class="form-floating">
-              <input type="password" class="form-control" id="password" name="password" placeholder="Contrase&ntilde;a">
-              <label class="form-label" for="password">Contrase&ntilde;a</label>
+            <div class='form-floating'>
+              <input type='password' class='form-control' id='password' name='password' placeholder='Contrase&ntilde;a'>
+              <label class='form-label' for='password'>Contrase&ntilde;a</label>
             </div>
           </form>
 
         </div>
       </div>
-      <div class="modal-footer bg-dark">
-        <button type="submit" form="login-form" class="btn btn-info">Acceder</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      <div class='modal-footer bg-dark'>
+        <button type='submit' form='login-form' class='btn btn-info'>Acceder</button>
+        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
       </div>
     </div>
   </div>
 </div>
-<!---------------------------------------------- Log in Modal ---------------------------------------------->
+<!---------------------------------------------- Log in Modal ---------------------------------------------->" ?>

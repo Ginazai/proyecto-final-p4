@@ -37,11 +37,10 @@ if(!empty($_POST)){
 					 * Session log table
 					 * */
 					$session_query = $con->prepare("INSERT INTO session (username, is_active, last_activity) 
-						VALUES (:uname, :active, :lactivity)");
+						VALUES (:uname, :active, NOW())");
 					$session_query->execute(array(
 						':uname' => $username,
-						':active' => 1,
-						':lactivity' => date("Y-m-d H:i:s")
+						':active' => 1
 					));
 
 					print "<script>window.location='../home.php';</script>";				

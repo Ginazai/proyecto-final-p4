@@ -56,6 +56,14 @@ create table user_roles(
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ---------------------------------------------
+CREATE TABLE data_trace(
+	id int AUTO_INCREMENT PRIMARY key not null, 
+    username varchar(100) not null,
+    _before varchar(150) not null, 
+    _after varchar(150) not null,
+    _date datetime not null
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
+---------------------------------------------
 CREATE TABLE categorias(
 	id int auto_increment primary key not null,
 	categoria varchar(50)
