@@ -4,6 +4,7 @@ $config = include '../../conexion.php';
 
 $resultado = [
   'error' => false,
+  'advertencia' => false,
   'mensaje' => ''
 ];
 
@@ -39,22 +40,52 @@ if (!isset($_GET['id'])) {
 if (isset($_POST['submit'])) {
   try {
     $id = $_GET['id'];
+    $roles = $_POST['Roles'];
+    $role_names = array();
+    foreach($roles as $role){
+      array_push($role_names, $role);
+    }
 
-    $consulta = $con->prepare("UPDATE user SET fullname = :fn, username = :un,
-      email = :em, password = :pw WHERE id = :id");
-    $consulta->execute(array(
-      ':id' => $_GET['id'],
-      ':fn' => $_POST['fullname'],
-      ':un' => $_POST['username'],
-      ':em' => $_POST['email'],
-      ':pw' => $_POST['password']
-    ));
+    $data_after = array(
+      "fullname" => $_POST['fullname'],
+      "username" => $_POST['username'],
+      "roles" => $role_names,
+      "email" => $_POST['email'],
+      "password" => $_POST['password']
+    );
+    /**
+     * Verify if an update was made
+     * */
+    $change = false;
+    for($x=0;$x<count($data_after);$x++){
+      $before_keys = array_keys($data_before);
+      $after_keys = array_keys($data_after);
+      if($data_before[$before_keys[$x]] != $data_after[$after_keys[$x]]){
+        $change = true;
+      } else {
+        $resultado['advertencia'] = true;
+        $resultado['mensaje'] = "No se ha realizado ningun cambio";
+      }
+    }
 
-    $update_role_query1 = $con->prepare("DELETE FROM user_roles WHERE user_id = :uid");
-    $update_role_query1->execute(array(':uid' => $_GET['id']));
+    if($change){
+      $resultado['advertencia'] = false;
+      $resultado['mensaje'] = "";
 
-    if(isset($_POST['Roles'])){
-      foreach($_POST['Roles'] as $role){
+      $consulta = $con->prepare("UPDATE user SET fullname = :fn, username = :un,
+        email = :em, password = :pw WHERE id = :id");
+      $consulta->execute(array(
+        ':id' => $_GET['id'],
+        ':fn' => $_POST['fullname'],
+        ':un' => $_POST['username'],
+        ':em' => $_POST['email'],
+        ':pw' => $_POST['password']
+      ));
+
+      $update_role_query1 = $con->prepare("DELETE FROM user_roles WHERE user_id = :uid");
+      $update_role_query1->execute(array(':uid' => $_GET['id']));
+
+      foreach($role_names as $role){
         $select_role = $con->prepare("SELECT id FROM roles WHERE role = :role");
         $select_role->execute([":role" => $role]);
         $selected_row = $select_role->fetch(PDO::FETCH_ASSOC);
@@ -67,53 +98,31 @@ if (isset($_POST['submit'])) {
           "rid" => $selected_id
         ]);
       }
-    }
-  /**
-   * Update data after every update
-   * */
-  $role_names = array();
-  $data_change = $con->prepare("
-    SELECT * FROM user
-    INNER JOIN user_roles ON user_roles.user_id = user.id
-    INNER JOIN roles ON user_roles.role_id = roles.id
-    WHERE user.id = :uid");
-  $data_change->execute([':uid' => $id]);
-  $usuarios = $data_change->fetchAll();
-  $usuario = $usuarios[0];
-  foreach($usuarios as $user){
-    array_push($role_names, $user['role']);
-  }
+      /**
+       * Check data after every update
+       * */
+      $role_names = array();
+      $data_change = $con->prepare("
+        SELECT * FROM user
+        INNER JOIN user_roles ON user_roles.user_id = user.id
+        INNER JOIN roles ON user_roles.role_id = roles.id
+        WHERE user.id = :uid");
+      $data_change->execute([':uid' => $id]);
+      $usuarios = $data_change->fetchAll();
+      $usuario = $usuarios[0];
+      foreach($usuarios as $user){
+        array_push($role_names, $user['role']);
+      }
 
-  $data_after = array(
-    "fullname" => $usuario['fullname'],
-    "username" => $usuario['username'],
-    "roles" => $role_names,
-    "email" => $usuario['email'],
-    "password" => $usuario['password']
-  );
-  $_SESSION['data_after'] = $data_after; 
-  /**
-   * Verify if an update was made, if not, delete the row
-   * */
-  $change = false;
-  for($x=0;$x<count($data_after);$x++){
-    $before_keys = array_keys($data_before);
-    $after_keys = array_keys($data_after);
-    if($data_before[$before_keys[$x]] != $data_after[$after_keys[$x]]){
-      $change = true;
+      $data_update = $con->prepare("
+        INSERT INTO data_trace ( username, _before, _after, _date ) 
+        VALUES ( :uname, :bf, :af, NOW() )");
+      $data_update->execute([
+        ':uname' => $_SESSION['username'],
+        ':bf' => json_encode($data_before),
+        ':af' =>  json_encode($data_after)
+      ]);
     }
-  }
-  echo(var_dump($change) . "<br>");
-  if($change){
-    $data_update = $con->prepare("
-      INSERT INTO data_trace ( username, _before, _after, _date ) 
-      VALUES ( :uname, :bf, :af, NOW() )");
-    $data_update->execute([
-      ':uname' => $_SESSION['username'],
-      ':bf' => json_encode($data_before),
-      ':af' =>  json_encode($data_after)
-    ]);
-  }
 
   } catch(PDOException $error) {
     $resultado['error'] = true;
@@ -135,28 +144,40 @@ $logout_url = "../../logout.php";
 
 <?php
 if ($resultado['error']) {
-  ?>
-  <div class="container mt-2">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="alert alert-danger" role="alert">
-          <?= $resultado['mensaje'] ?>
+  $mensaje = $resultado['mensaje'];
+  echo("
+    <div class='container mt-2'>
+    <div class='row'>
+      <div class='col-md-12'>
+        <div class='alert alert-danger' role='alert'>
+          $mensaje
         </div>
       </div>
     </div>
-  </div>
-  <?php
+  </div>");
+} elseif($resultado['advertencia']) {
+  $mensaje = $resultado['mensaje'];
+  echo("
+    <div class='container mt-2'>
+    <div class='row'>
+      <div class='col-md-12'>
+        <div class='alert alert-warning' role='alert'>
+          $mensaje
+        </div>
+      </div>
+    </div>
+  </div>");
 }
 ?>
 
 <?php
-if (isset($_POST['submit']) && !$resultado['error']) {
+if (isset($_POST['submit']) && !$resultado['error'] && !$resultado['advertencia']) {
   ?>
   <div class="container mt-2">
     <div class="row">
       <div class="col-md-12">
         <div class="alert alert-success" role="alert">
-          El usuario <?= isset($_SESSION['data_after']) ? var_dump($_SESSION['data_after']) : ""?> ha sido actualizado correctamente
+          El usuario <?= $usuario['fullname'] ?> ha sido actualizado correctamente
         </div>
       </div>
     </div>
@@ -173,7 +194,6 @@ if (isset($usuario) && $usuario) {
       <div class="col-md-12">
         <h2 class="mt-4">Editando el usuario <?= $usuario['fullname'] ?></h2>
         <hr>
-        <?= var_dump($_SESSION['data_after']) ?>
         <form method="post">
           <div class="form-floating my-3">
             <input type="text" name="fullname" id="fullname" placeholder="Nombre completo" value="<?= $usuario['fullname'] ?>" class="form-control">
@@ -206,13 +226,13 @@ if (isset($usuario) && $usuario) {
             
             <div class="checkbox-inline">
               <label>
-                <input type="checkbox" name="Roles[software_specialist]" value="software_specialist" <?= in_array("hardware_specialist", $role_names) ? "checked" : "" ?>> Especialista de software
+                <input type="checkbox" name="Roles[software_specialist]" value="software_specialist" <?= in_array("software_specialist", $role_names) ? "checked" : "" ?>> Especialista de software
               </label>
             </div>
 
             <div class="checkbox-inline">
               <label>
-                <input type="checkbox" name="Roles[hardware_specialist]" value="hardware_specialist" <?= in_array("software_specialist", $role_names) ? "checked" : "" ?>> Especialista de hardware
+                <input type="checkbox" name="Roles[hardware_specialist]" value="hardware_specialist" <?= in_array("hardware_specialist", $role_names) ? "checked" : "" ?>> Especialista de hardware
               </label>
             </div>
           </div>

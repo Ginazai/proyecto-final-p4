@@ -1,5 +1,7 @@
 <?php
 session_start();
+$_SESSION['vista'] = "usuarios";
+
 if (isset($_POST['submit'])) {
 
   $config = include '../../config.php';

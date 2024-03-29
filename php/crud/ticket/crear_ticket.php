@@ -1,5 +1,7 @@
 <?php
 session_start();
+$_SESSION['vista'] = "tickets";
+
 if (isset($_POST['submit'])) {
   $resultado = [
     'error' => false,
