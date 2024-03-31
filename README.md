@@ -26,7 +26,7 @@ elemento de las vistas)
 <h6>Crear</h6>
 <img width="100%" src="https://github.com/Ginazai/proyecto-final-p4/assets/67808421/11e07241-359c-4c15-84de-1940aa82a965">
 <h6>Leer/Actualizar/Borrar</h6>
-<img width="100%" src="https://github.com/Ginazai/proyecto-final-p4/assets/67808421/a9783d29-b0c2-4635-b374-a00dbc051f2b">
+<img width="100%" src="https://github.com/Ginazai/proyecto-final-p4/assets/67808421/01dc8e71-3eb2-4ba2-96bc-f3b831536c69">
 <h3>Categorias (CRUD)</h3>
 <h6>Crear</h6>
 <img width="100%" src="https://github.com/Ginazai/proyecto-final-p4/assets/67808421/fe2ed18e-d17b-446c-9d0d-fdc2fd85f455">
