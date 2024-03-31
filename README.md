@@ -15,13 +15,13 @@ elemento de las vistas)
 <h3>Hogar</h3>
 <img width="100%" src="https://github.com/Ginazai/proyecto-final-p4/assets/67808421/6e498410-a37f-4c2f-9325-07d9ad0af212">
 <h3>Inicio</h3>
-<img width="100%" src="https://github.com/Ginazai/proyecto-final-p4/assets/67808421/4451aef2-3d23-4396-8779-188b728d6c93">
+<img width="100%" src="https://github.com/Ginazai/proyecto-final-p4/assets/67808421/4df68faa-35ac-4128-8b2f-51f8870dd801">
 <h3>Usuarios (CRUD)</h3>
 <p>Esta es la operacion con mayor complejidad por el momento. Posee aspectos refinados en el CRUD como la comprobacion de actualizacion de datos en el form, el monitoreo de la data que es actualizada y la asignacion de roles de usuario.</p>
 <h6>Crear</h6>
 <img width="100%" src="https://github.com/Ginazai/proyecto-final-p4/assets/67808421/d97bad76-7cea-46a5-bb23-f13b8e34dfbb">
 <h6>Leer/Actualizar/Borrar</h6>
-<img width="100%" src="https://github.com/Ginazai/proyecto-final-p4/assets/67808421/6d31125a-30e6-4879-8ff3-72025cb5410c">
+<img width="100%" src="https://github.com/Ginazai/proyecto-final-p4/assets/67808421/4df68faa-35ac-4128-8b2f-51f8870dd801">
 <h3>Tickets (CRUD)</h3>
 <h6>Crear</h6>
 <img width="100%" src="https://github.com/Ginazai/proyecto-final-p4/assets/67808421/11e07241-359c-4c15-84de-1940aa82a965">
