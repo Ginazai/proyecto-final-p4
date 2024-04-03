@@ -23,7 +23,6 @@ $user_url = "php/crud/usuario/crear_usuario.php";
 $category_url = "php/crud/categoria/crear_categoria.php";
 $logout_url = "php/logout.php";
 ?>
-	<?php require_once "php/head_resources.php"; ?>
 	<?php require_once "php/navbar.php"; ?>
 	<?php require_once "php/top_menu.php"; ?>
 

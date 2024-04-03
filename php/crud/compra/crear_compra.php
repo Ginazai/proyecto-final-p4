@@ -8,12 +8,13 @@ if (isset($_POST['submit'])) {
   $last_element=null;
   try {
     $sentencia = $con->prepare("INSERT INTO user (fullname, username, email, password, created_at)
-      VALUES (:fn, :un, :em, :pw, NOW())");
+      VALUES (:fn, :un, :em, :pw, :ca)");
     $sentencia->execute(array(
       ':fn' => $_POST['fullname'],
       ':un' => $_POST['username'],
       ':em' => $_POST['email'],
-      ':pw' => $_POST['password']
+      ':pw' => $_POST['password'],
+      ':ca' => date("Y-m-d H:i:s")
     ));
 
     $last_element = $con->lastInsertId();

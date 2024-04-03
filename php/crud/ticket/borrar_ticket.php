@@ -1,19 +1,16 @@
 <?php
-$config = include '../../config.php';
+$config = include '../../conexion.php';
 
 $resultado = [
   'error' => false,
   'mensaje' => ''
 ];
 
-try {
-  $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
-  $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
-    
+try {    
   $id = $_GET['id'];
   $consultaSQL = "DELETE FROM tickets WHERE id =" . $id;
 
-  $sentencia = $conexion->prepare($consultaSQL);
+  $sentencia = $con->prepare($consultaSQL);
   $sentencia->execute();
 
   $_SESSION['vista'] = "tickets";

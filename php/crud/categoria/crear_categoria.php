@@ -8,21 +8,11 @@ if (isset($_POST['submit'])) {
     'mensaje' => 'la categoria ' . $_POST['categoria'] . ' ha sido agregada con éxito'
   ];
 
-  $config = include '../../config.php';
+  $config = include '../../conexion.php';
 
   try {
-    $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
-    $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
-
-    $categoria = [
-      "categoria"   => $_POST['categoria'],
-    ];
-
-    $consultaSQL = "INSERT INTO categorias ( categoria )";
-    $consultaSQL .= "values (:" . implode(", :", array_keys($categoria)) . ")";
-
-    $sentencia = $conexion->prepare($consultaSQL);
-    $sentencia->execute($categoria);
+    $sentencia = $con->prepare("INSERT INTO categorias ( categoria ) VALUES ( :ctg )");
+    $sentencia->execute([':ctg' => $_POST['categoria']]);
 
   } catch(PDOException $error) {
     $resultado['error'] = true;
@@ -39,7 +29,6 @@ $category_url = "crear_categoria.php";
 $logout_url = "../../logout.php";
 ?>
 
-<?php include '../../head_resources.php'; ?>
 <?php include '../../navbar.php'; ?>
 
 <?php
@@ -66,7 +55,7 @@ if (isset($resultado)) {
       <form method="post">
         <div class="form-group">
           <label for="categoria">Ingrese una categoria</label>
-          <input class="form-control" type="text" name="categoria" ></input>
+          <input class="form-control" type="text" name="categoria"></input>
         </div>
         <div class="form-group my-3">
           <input type="submit" name="submit" class="btn btn-dark" value="Enviar">

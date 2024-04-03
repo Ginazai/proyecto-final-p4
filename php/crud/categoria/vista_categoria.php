@@ -1,10 +1,8 @@
 <?php
 $error = false;
-$config = include 'php/config.php';
+$config = include 'php/conexion.php';
 
 try {
-  $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
-  $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
 
   if (isset($_POST['categorias'])) {
     $consultaSQL = "SELECT * FROM categorias WHERE categoria LIKE '%" . $_POST['categorias'] . "%'";
@@ -12,7 +10,7 @@ try {
     $consultaSQL = "SELECT * FROM categorias";
   }
 
-  $sentencia = $conexion->prepare($consultaSQL);
+  $sentencia = $con->prepare($consultaSQL);
   $sentencia->execute();
 
   $categoria = $sentencia->fetchAll();

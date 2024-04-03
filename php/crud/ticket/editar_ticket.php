@@ -1,6 +1,6 @@
 <?php
 session_start();
-$config = include '../../config.php';
+$config = include '../../conexion.php';
 
 $resultado = [
   'error' => false,
@@ -14,27 +14,22 @@ if (!isset($_GET['id'])) {
 
 if (isset($_POST['submit'])) {
   try {
-    $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
-    $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
 
-    $ticket = [
-      "id"        => $_GET['id'],
-      "nombre"    => $_POST['nombre'],
-      "apellido"  => $_POST['apellido'],
-      "email"     => $_POST['email'],
-      "consulta" => $_POST['consulta']
-    ];
-    
-    $consultaSQL = "UPDATE tickets SET
+    $consulta = $con->prepare("UPDATE tickets SET
         nombre = :nombre,
         apellido = :apellido,
         email = :email,
         consulta = :consulta,
         created_at = created_at,
         updated_at = NOW()
-        WHERE id = :id";
-    $consulta = $conexion->prepare($consultaSQL);
-    $consulta->execute($ticket);
+        WHERE id = :id");
+    $consulta->execute([
+      "id"        => $_GET['id'],
+      "nombre"    => $_POST['nombre'],
+      "apellido"  => $_POST['apellido'],
+      "email"     => $_POST['email'],
+      "consulta" => $_POST['consulta']
+    ]);
 
   } catch(PDOException $error) {
     $resultado['error'] = true;
@@ -42,15 +37,11 @@ if (isset($_POST['submit'])) {
   }
 }
 
-try {
-  $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
-  $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
-    
+try {    
   $id = $_GET['id'];
-  $consultaSQL = "SELECT * FROM tickets WHERE id =" . $id;
 
-  $sentencia = $conexion->prepare($consultaSQL);
-  $sentencia->execute();
+  $sentencia = $con->prepare("SELECT * FROM tickets WHERE id = :id");
+  $sentencia->execute([':id' => $id]);
 
   $ticket = $sentencia->fetch(PDO::FETCH_ASSOC);
 
@@ -73,7 +64,6 @@ $category_url = "../categoria/crear_categoria.php";
 $logout_url = "../../logout.php";
 ?>
 
-<?php include '../../head_resources.php'; ?>
 <?php include '../../navbar.php'; ?>
 
 <?php

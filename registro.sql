@@ -1,6 +1,8 @@
 create database myapp;
 use myapp;
-
+---------------------------------------------
+--Base
+---------------------------------------------
 create table user(
 	id int auto_increment primary key not null,
 	fullname varchar(500) not null,
@@ -24,15 +26,6 @@ ALTER TABLE users_roles ADD UNIQUE INDEX(username);
 --For inserting all the existing user usernames
 INSERT INTO users_roles(username)
 SELECT username FROM user;
----------------------------------------------
-CREATE TABLE session(
-	id int not null auto_increment primary key,
-	username varchar(100) not null,
-	is_active boolean not null,
-	last_activity datetime not null
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-ALTER TABLE session ADD INDEX(username);
 --------------------------------------------
 CREATE TABLE roles(
 	id int not null auto_increment primary key,
@@ -56,6 +49,16 @@ create table user_roles(
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ---------------------------------------------
+--Audit
+---------------------------------------------
+CREATE TABLE session(
+	id int not null auto_increment primary key,
+	username varchar(100) not null,
+	is_active boolean not null,
+	last_activity datetime not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+---------------------------------------------
+ALTER TABLE session ADD INDEX(username);
 CREATE TABLE data_trace(
 	id int AUTO_INCREMENT PRIMARY key not null, 
     username varchar(100) not null,
@@ -64,7 +67,20 @@ CREATE TABLE data_trace(
     _date datetime not null
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
 ---------------------------------------------
+--Catalogs
+---------------------------------------------
 CREATE TABLE categorias(
 	id int auto_increment primary key not null,
-	categoria varchar(50)
+	categoria varchar(50) not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+---------------------------------------------
+CREATE TABLE tickets(
+	id int auto_increment primary key not null,
+	nombre varchar(30) not null,
+	apellido varchar(30) not null,
+	email varchar(50) not null,
+	ticket varchar(500) not null,
+	consulta varchar(255) not null,
+	created_at timestamp not null,
+	updated_at timestamp not null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

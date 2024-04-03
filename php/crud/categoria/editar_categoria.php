@@ -1,6 +1,6 @@
 <?php
 session_start();
-$config = include '../../config.php';
+$config = include '../../conexion.php';
 
 $resultado = [
   'error' => false,
@@ -14,19 +14,15 @@ if (!isset($_GET['id'])) {
 
 if (isset($_POST['submit'])) {
   try {
-    $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
-    $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
-
-    $categoria = [
-      "id"        => $_GET['id'],
-      "categoria"    => $_POST['categoria']
-    ];
     
     $consultaSQL = "UPDATE categorias SET
         categoria = :categoria
         WHERE id = :id";
-    $consulta = $conexion->prepare($consultaSQL);
-    $consulta->execute($categoria);
+    $consulta = $con->prepare($consultaSQL);
+    $consulta->execute([
+      "id"        => $_GET['id'],
+      "categoria"    => $_POST['categoria']
+    ]);
 
   } catch(PDOException $error) {
     $resultado['error'] = true;
@@ -34,15 +30,12 @@ if (isset($_POST['submit'])) {
   }
 }
 
-try {
-  $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
-  $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
-    
+try {    
   $id = $_GET['id'];
-  $consultaSQL = "SELECT * FROM categorias WHERE id =" . $id;
+  $consultaSQL = "SELECT * FROM categorias WHERE id = :id";
 
-  $sentencia = $conexion->prepare($consultaSQL);
-  $sentencia->execute();
+  $sentencia = $con->prepare($consultaSQL);
+  $sentencia->execute([':id' => $id]);
 
   $categoria = $sentencia->fetch(PDO::FETCH_ASSOC);
 
@@ -65,7 +58,6 @@ $category_url = "crear_categoria.php";
 $logout_url = "../../logout.php";
 ?>
 
-<?php include '../../head_resources.php'; ?>
 <?php include '../../navbar.php'; ?>
 
 <?php

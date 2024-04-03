@@ -1,18 +1,16 @@
 <?php
 $error = false;
-$config = include 'php/config.php';
+$config = include 'php/conexion.php';
+$vista = "tickets";
 
 try {
-  $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
-  $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
-
   if (isset($_POST['tickets'])) {
     $consultaSQL = "SELECT * FROM tickets WHERE ticket LIKE '%" . $_POST['tickets'] . "%'";
   } else {
     $consultaSQL = "SELECT * FROM tickets";
   }
 
-  $sentencia = $conexion->prepare($consultaSQL);
+  $sentencia = $con->prepare($consultaSQL);
   $sentencia->execute();
 
   $tickets = $sentencia->fetchAll();
@@ -21,7 +19,7 @@ try {
   $error= $error->getMessage();
 }
 
-$titulo = isset($_POST['ticket']) ? 'Lista de tickets (' . $_POST['ticket'] . ')' : 'Lista de tickets ';
+$titulo = isset($_POST['ticket']) ? 'Lista de tickets (' . $_POST['ticket'] . ')' : 'Lista de tickets';
 ?>
 
 <?php

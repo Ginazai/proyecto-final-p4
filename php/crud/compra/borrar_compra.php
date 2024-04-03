@@ -6,13 +6,14 @@ $resultado = [
   'mensaje' => ''
 ];
 
-try {
+try {    
   $id = $_GET['id'];
+  $consultaSQL = "DELETE FROM user WHERE id =" . $id;
 
-  $sentencia = $con->prepare("DELETE FROM categorias WHERE id = :id");
-  $sentencia->execute([':id' => $id]);
+  $sentencia = $con->prepare($consultaSQL);
+  $sentencia->execute();
 
-  $_SESSION['vista'] = "categorias";
+  $_SESSION['vista'] = "usuarios";
   header('Location: ../../../index.php');
 
 } catch(PDOException $error) {

@@ -81,11 +81,13 @@ if (isset($_POST['submit'])) {
         ':em' => $_POST['email'],
         ':pw' => $_POST['password']
       ));
+      echo(var_dump($consulta));
       /**
        * UPDATE user INNER JOIN roles on roles.user_id = user.id
        * 
        * 
        * */
+
       $update_role_query1 = $con->prepare("DELETE FROM user_roles WHERE user_id = :uid");
       $update_role_query1->execute(array(':uid' => $_GET['id']));
 

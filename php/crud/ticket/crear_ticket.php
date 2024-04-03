@@ -8,25 +8,18 @@ if (isset($_POST['submit'])) {
     'mensaje' => 'El ticket ha sido generado con éxito'
   ];
 
-  $config = include '../../config.php';
+  $config = include '../../conexion.php';
 
   try {
-    $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
-    $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
-
-    $ticket = [
-      "nombre"   => $_POST['nombre'],
-      "apellido" => $_POST['apellido'],
-      "email"    => $_POST['email'],
-      "ticket"     => hash("sha256", $_POST['nombre'].$_POST['apellido'].$_POST['email']),
-      "consulta" => $_POST['consulta']
-    ];
-
-    $consultaSQL = "INSERT INTO tickets (nombre, apellido, email, ticket, consulta)";
-    $consultaSQL .= "values (:" . implode(", :", array_keys($ticket)) . ")";
-
-    $sentencia = $conexion->prepare($consultaSQL);
-    $sentencia->execute($ticket);
+    $sentencia = $con->prepare("INSERT INTO tickets (nombre, apellido, email, ticket, consulta)
+      VALUES (:nombre, :apellido, :email, :ticket, :consulta)");
+    $sentencia->execute([
+      ":nombre"   => $_POST['nombre'],
+      ":apellido" => $_POST['apellido'],
+      ":email"    => $_POST['email'],
+      ":ticket"     => hash("sha256", $_POST['nombre'].$_POST['apellido'].$_POST['email']),
+      ":consulta" => $_POST['consulta']
+    ]);
 
   } catch(PDOException $error) {
     $resultado['error'] = true;
@@ -43,7 +36,6 @@ $category_url = "../categoria/crear_categoria.php";
 $logout_url = "../../logout.php";
 ?>
 
-<?php include '../../head_resources.php'; ?>
 <?php include '../../navbar.php'; ?>
 
 <?php
