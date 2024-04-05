@@ -11,6 +11,7 @@ echo(
   	      		<option value='tickets'>Tickets</option>
   	      		<option value='usuarios'>Usuarios</option>
   	      		<option value='categorias'>Categorias</option>
+              <option value='compras'>Compras</option>
   	      	</select>
         	</div>
         </form>

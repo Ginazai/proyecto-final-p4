@@ -84,3 +84,13 @@ CREATE TABLE tickets(
 	created_at timestamp not null,
 	updated_at timestamp not null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+---------------------------------------------
+CREATE TABLE data_sales(
+	id_compra int primary key AUTO_INCREMENT not null,
+    titulo varchar(300) not null, 
+    descripcion varchar(300),
+    precio float not null,
+    username varchar(30) not null,
+    fechacompra date not null,
+    cantidad int not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

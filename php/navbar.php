@@ -1,6 +1,7 @@
 <html lang="es">
   <head>
-    <title></title>
+    <title>Serve.ware</title>
+    <link rel="icon" type="image/png" sizes="70x70" href="../html/assets/images/icons/icon.png">
     <meta charset="utf-8">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -45,15 +46,19 @@
                   Opciones
                 </a>
                 <ul class="dropdown-menu">
-                  <?php if(in_array(1, $_SESSION['role'])):?>
+                  <?php if(in_array(1, $_SESSION['Roles'])):?>
                     <li class="dropdown-item"><a href="<?= $ticket_url  ?>">Crear ticket</a></li>
                     <li class="dropdown-item"><a href="<?= $user_url  ?>">Crear usuario</a></li>
                     <li class="dropdown-item"><a href="<?= $category_url ?>">Crear categoria</a></li>
+                    <?php if(in_array(6, $_SESSION['Roles'])) :?>
+                      <li class="nav-item">
+                        <li class="dropdown-item"><a href="<?= $compras_url ?>">Compras</a></li>
+                      </li>
+                    <?php endif; ?>
                   <?php endif;?>
                 </ul>
               </li>
               <?php endif;?>
-
               <!-- <li class="nav-item">
                 <a class="nav-link text-light" href="#">Contacto</a>
               </li> -->

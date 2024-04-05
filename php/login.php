@@ -21,7 +21,6 @@ if(!empty($_POST)){
 					$sql2->execute([':uid' => $user_id]);
 						while ($r2=$sql2->fetch(PDO::FETCH_ASSOC)){
 							array_push($user_role, $r2['role_id']);
-							break;
 						}
 					break;
 				}
@@ -29,7 +28,7 @@ if(!empty($_POST)){
 					print "<script>alert(\"Acceso invalido.\");window.location='../home.php';</script>";
 				} else{
 					session_start();
-					$_SESSION['role']=$user_role;
+					$_SESSION['Roles']=$user_role;
 					$_SESSION['user_name']=$user_name;
 					$_SESSION['username']=$username;
 					$_SESSION['user_id']=$user_id;

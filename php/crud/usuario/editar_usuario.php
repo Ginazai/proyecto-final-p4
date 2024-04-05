@@ -84,7 +84,6 @@ if (isset($_POST['submit'])) {
       /**
        * UPDATE user INNER JOIN roles on roles.user_id = user.id
        * 
-       * 
        * */
       $update_role_query1 = $con->prepare("DELETE FROM user_roles WHERE user_id = :uid");
       $update_role_query1->execute(array(':uid' => $_GET['id']));
@@ -217,6 +216,12 @@ if (isset($usuario) && $usuario) {
 
             <div class="checkbox-inline">
               <label>
+                <input type="checkbox" name="Roles[admin_compra]" value="admin_compra" <?= in_array("admin_compra", $role_names) ? "checked" : "" ?>> Administrador de Compras
+              </label>
+            </div>
+
+            <div class="checkbox-inline">
+              <label>
                 <input type="checkbox" name="Roles[customer]" value="customer" <?= in_array("customer", $role_names) ? "checked" : "" ?>> Cliente
               </label>
             </div>
@@ -258,7 +263,6 @@ if (isset($usuario) && $usuario) {
         </div>
       </div>
     </div>
-    <script type="application/javascript" src="../../../js/script.js"></script>
   <?php
 }
 ?>
