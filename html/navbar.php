@@ -1,7 +1,7 @@
 <html lang="es">
   <head>
     <title>Serve.ware</title>
-    <link rel="icon" type="image/png" sizes="70x70" href="../html/assets/images/icons/icon.png">
+    <link rel="icon" type="image/png" sizes="70x70" href="html/assets/images/icons/icon.png">
     <meta charset="utf-8">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -38,26 +38,28 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav w-100 d-flex justify-content-center">
               <?php if(isset($_SESSION["user_id"])):?>
-              <li class="nav-item">
-                <a class="nav-link active text-light" href="<?= $index_url ?>">Inicio</a>
-              </li>
+                <?php if(in_array(2, $_SESSION['Roles'])&&!in_array(1, $_SESSION['Roles'])&&
+                !in_array(6, $_SESSION['Roles'])):?>
+                <li class='nav-item'><a class='nav-link active text-light' href='<?= $customer_url ?>'>Compras</a></li>
+                <?php endif;?>
+                <?php if(in_array(6, $_SESSION['Roles']) && !in_array(1, $_SESSION['Roles'])):?>
+                <li class='nav-item'><a class='nav-link active text-light' href='<?= $index_url ?>'>Admin Compra</a></li>
+                <?php endif;?>
+              <?php if(in_array(1, $_SESSION['Roles'])):?>
+              <li class='nav-item'><a class='nav-link active text-light' href='<?= $index_url ?>'>Panel de admin</a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link text-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Opciones
+                  Crear nuevo...
                 </a>
                 <ul class="dropdown-menu">
-                  <?php if(in_array(1, $_SESSION['Roles'])):?>
+                 
                     <li class="dropdown-item"><a href="<?= $ticket_url  ?>">Crear ticket</a></li>
                     <li class="dropdown-item"><a href="<?= $user_url  ?>">Crear usuario</a></li>
-                    <li class="dropdown-item"><a href="<?= $category_url ?>">Crear categoria</a></li>
-                    <?php if(in_array(6, $_SESSION['Roles'])) :?>
-                      <li class="nav-item">
-                        <li class="dropdown-item"><a href="<?= $compras_url ?>">Compras</a></li>
-                      </li>
-                    <?php endif; ?>
-                  <?php endif;?>
+                    <li class="dropdown-item"><a href="<?= $category_url ?>">Crear categoria</a></li>                
+                  
                 </ul>
               </li>
+              <?php endif;?>
               <?php endif;?>
               <!-- <li class="nav-item">
                 <a class="nav-link text-light" href="#">Contacto</a>

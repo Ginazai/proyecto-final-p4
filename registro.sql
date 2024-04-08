@@ -32,6 +32,12 @@ CREATE TABLE roles(
 	role varchar(100)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ---------------------------------------------
+create table permissions(
+	id int primary key auto_increment not null, 
+	_read boolean not null,
+	_write boolean not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+---------------------------------------------
 create table user_roles(
 	id int auto_increment primary key not null, 
 	user_id int,
@@ -48,6 +54,22 @@ create table user_roles(
 		ON DELETE CASCADE
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+---------------------------------------------
+create table role_permissions(
+	id int primary key auto_increment not null,
+	role_id int not null,
+	permission_id int not null,
+
+	constraint fk_role_id
+	foreign key (role_id)
+	references roles (id)
+	on delete cascade,
+
+	constraint fk_permission_id
+	foreign key (permission_id)
+	references permissions (id)
+	on delete cascade
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ---------------------------------------------
 --Audit
 ---------------------------------------------

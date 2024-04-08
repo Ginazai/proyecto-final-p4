@@ -52,13 +52,14 @@ try {
 //navbar url variable path
 $index_url = "../../../index.php";
 $home_url = "../../../home.php";
+$customer_url = "../view-only/vista_cliente.php";
 $ticket_url = "../ticket/crear_ticket.php";
 $user_url = "../usuario/crear_usuario.php";
 $category_url = "crear_categoria.php";
 $logout_url = "../../logout.php";
 ?>
 
-<?php include '../../navbar.php'; ?>
+<?php include '../../../html/navbar.php'; ?>
 
 <?php
 if ($resultado['error']) {
