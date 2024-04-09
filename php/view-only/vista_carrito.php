@@ -15,12 +15,12 @@ try {
   $limit=" limit " . $start . "," . N_RGT;
   if (isset($_POST['compras'])) {
     $search_keyword = $_POST['compras'];
-    $consultaSQL = 'SELECT * FROM data_sales WHERE titulo LIKE :keyword OR descripcion LIKE :keyword ORDER BY id_compra DESC ';
+    $consultaSQL = 'SELECT * FROM data_buy WHERE titulo LIKE :keyword OR descripcion LIKE :keyword ORDER BY id_compra DESC ';
 
     $pagination_statement = $con->prepare($consultaSQL);
     $pagination_statement->execute([':keyword' => $search_keyword]);
   } else {
-    $consultaSQL = "SELECT * FROM data_sales";
+    $consultaSQL = "SELECT * FROM data_buy";
 
     $pagination_statement = $con->prepare($consultaSQL);
     $pagination_statement->execute();
@@ -52,7 +52,7 @@ try {
   $error= $error->getMessage();
 }
 
-$titulo = isset($_POST['compras']) ? 'Lista de articulos (' . $_POST['compras'] . ')' : 'Lista de articulos ';
+$titulo = 'Articulos en el carrito ';
 
 //navbar url variable path
 $index_url = "../../index.php";
@@ -121,7 +121,7 @@ if ($error) {
               //if($fila['id'] == $_SESSION['user_id']) {continue;}
               ?>
               <tr>
-                <td><?php echo $fila["id_compra"]; ?></td>
+                <td><?php echo $fila["id_orden"]; ?></td>
                 <td><?php echo $fila["username"]; ?></td>
                 <td><?php echo $fila["titulo"]; ?></td>
                 <td><?php echo $fila["descripcion"]; ?></td>
@@ -159,5 +159,3 @@ if ($error) {
     </div>
   </div>
 </div>
-<?= include "vista_carrito.php" ?>
-<!-- id buy: fecha+nombredeusuario; video en youtube -->

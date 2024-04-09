@@ -116,3 +116,23 @@ CREATE TABLE data_sales(
     fechacompra date not null,
     cantidad int not null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+---------------------------------------------
+CREATE TABLE data_buy(
+	id_orden varchar(50) primary key not null,
+    titulo varchar(300) not null, 
+    descripcion varchar(300),
+    precio float not null,
+    username varchar(30) not null,
+    fechacompra date not null,
+    cantidad int not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+---------------------------------------------
+CREATE TABLE data_fact(
+	id_fact varchar(50) primary key not null,
+    titulo varchar(300) not null, 
+    descripcion varchar(300),
+    precio float not null,
+    username varchar(30) not null,
+    fechacompra date not null,
+    cantidad int not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
