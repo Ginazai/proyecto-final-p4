@@ -118,7 +118,8 @@ CREATE TABLE data_sales(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ---------------------------------------------
 CREATE TABLE data_buy(
-	id_orden varchar(50) primary key not null,
+	id int primary key auto_increment not null,
+	id_orden varchar(50) not null,
     titulo varchar(300) not null, 
     descripcion varchar(300),
     precio float not null,
@@ -128,7 +129,8 @@ CREATE TABLE data_buy(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ---------------------------------------------
 CREATE TABLE data_fact(
-	id_fact varchar(50) primary key not null,
+	id int primary key auto_increment not null,
+	id_fact varchar(50) not null,
     titulo varchar(300) not null, 
     descripcion varchar(300),
     precio float not null,

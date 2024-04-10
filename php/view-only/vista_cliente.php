@@ -98,8 +98,8 @@ if ($error) {
         <?php
       }
       ?> 
-      <h2 class="mt-3"><?= $titulo ?></h2>
-      <table class="table">
+      <h2 class="mt-3"><?= $titulo ?><form id="vista" name="vista" type="post" action="php/view-only/actions/goto_cart.php"><button type="submit" class="btn btn-dark float-end">Carrito</button></form></h2>
+      <table class="table text-center">
         <thead>
           <tr>
             <th>#</th>
@@ -108,7 +108,6 @@ if ($error) {
             <th>Descripcion</th>
             <th>Precio</th>
             <th>Fecha de compra</th>
-            <th>Cantidad</th>
             <th>A&ntilde;adir al carrito</th>
           </tr>
         </thead>
@@ -130,7 +129,7 @@ if ($error) {
                 <td>
                   <form id="cantidad" name="cantidad" method="post" action="php/view-only/actions/add_sales.php?id=<?= $fila['id_compra'] ?>">
                   <?php 
-                  echo("<select name='amount' class='form-select'>");
+                  echo("<select name='amount' class='form-select my-2'>");
                   $disponible = $fila["cantidad"];
                   for($i=0;$i<$disponible;$i++){
                     $i_plus = $i + 1;
@@ -139,10 +138,11 @@ if ($error) {
                   } 
                   echo("</select>");
                   ?>
+                    <button class="btn btn-md btn-dark" type="submit">✏️A&ntilde;adir</button>                  
                   </form>
                 </td>
                 <td>                  
-                  <button form="cantidad" class="btn btn-md btn-dark" type="submit">✏️A&ntilde;adir</button>                  
+                                    
                 </td>
               </tr>
               <?php
@@ -159,5 +159,4 @@ if ($error) {
     </div>
   </div>
 </div>
-<?= include "vista_carrito.php" ?>
 <!-- id buy: fecha+nombredeusuario; video en youtube -->

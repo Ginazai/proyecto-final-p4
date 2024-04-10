@@ -33,16 +33,19 @@ $compras_url = "php/crud/compra/vista_compra.php";
 $logout_url = "php/logout.php";
 ?>
 	<?php require_once "html/navbar.php"; ?>
-	<?php require_once "html/top_menu.php"; ?>
 
 	<?php 
 	if(in_array(2, $_SESSION['Roles'])&&!in_array(1, $_SESSION['Roles'])&&!in_array(6, $_SESSION['Roles'])){
 		if($vista == "compras"){
-				$_SESSION['render']=require_once "php/view-only/vista_cliente.php"; $_SESSION['vista'] = $vista;}
+			require_once "html/top_menu.php";
+			$_SESSION['render']=require_once "php/view-only/vista_cliente.php"; $_SESSION['vista'] = $vista;}
+		elseif($vista=="carrito"){
+			$_SESSION['render']=require_once "php/view-only/vista_carrito.php"; $_SESSION['vista'] = $vista;}
 		else {
 				$_SESSION['render']=require_once "php/view-only/vista_cliente.php"; $_SESSION['vista'] = $vista;}
 	}
 	if(in_array(1, $_SESSION['Roles'])){
+		require_once "html/top_menu.php";
 		if($vista == "tickets") {
 		$_SESSION['render']=require_once "php/crud/ticket/vista_ticket.php"; $_SESSION['vista'] = $vista;}
 		elseif($vista == "usuarios") {
@@ -52,6 +55,7 @@ $logout_url = "php/logout.php";
 	}
 
 	if(in_array(6, $_SESSION['Roles'])){
+		require_once "html/top_menu.php";
 		if($vista == "compras"){
 			$_SESSION['render']=require_once "php/crud/compra/vista_compra.php"; $_SESSION['vista'] = $vista;}
 	}

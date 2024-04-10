@@ -3,7 +3,7 @@ define("N_RGT", 5);
 $config = include 'php/conexion.php';
 
 try {
-  $search_keyword = '';
+  $username=$_SESSION['username'];
   $per_page_html = '';
   $page = 1;
   $start=0;
@@ -13,18 +13,10 @@ try {
     $start=($page-1) * N_RGT;
   }
   $limit=" limit " . $start . "," . N_RGT;
-  if (isset($_POST['compras'])) {
-    $search_keyword = $_POST['compras'];
-    $consultaSQL = 'SELECT * FROM data_buy WHERE titulo LIKE :keyword OR descripcion LIKE :keyword ORDER BY id_compra DESC ';
 
-    $pagination_statement = $con->prepare($consultaSQL);
-    $pagination_statement->execute([':keyword' => $search_keyword]);
-  } else {
-    $consultaSQL = "SELECT * FROM data_buy";
-
-    $pagination_statement = $con->prepare($consultaSQL);
-    $pagination_statement->execute();
-  }
+  $consultaSQL = "SELECT * FROM data_buy WHERE username=:uname";
+  $pagination_statement = $con->prepare($consultaSQL);
+  $pagination_statement->execute([":uname"=>$username]);
 
   $row_count = $pagination_statement->rowCount();
   if(!empty($row_count)){
@@ -44,8 +36,14 @@ try {
   
   $query = $consultaSQL.$limit;
   $pdo_statement = $con->prepare($query);
-  isset($_POST['compras']) ? $pdo_statement->execute([':keyword' => $search_keyword]) : $pdo_statement->execute();
+  $pdo_statement->execute([":uname"=>$username]);
+
   $compras = $pdo_statement->fetchAll();
+
+  if(!empty($_POST['facturacion'])){
+    $_SESSION['vista']="compras";
+  }
+
   $error = false;
 } catch(PDOException $error) {
   $error = true;
@@ -102,14 +100,13 @@ if ($error) {
       <table class="table">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Username</th>
+            <th>#ID-orden</th>
             <th>Titulo</th>
             <th>Descripcion</th>
             <th>Precio</th>
             <th>Fecha de compra</th>
             <th>Cantidad</th>
-            <th>A&ntilde;adir al carrito</th>
+            <th>Accion</th>
           </tr>
         </thead>
         <tbody>
@@ -122,27 +119,12 @@ if ($error) {
               ?>
               <tr>
                 <td><?php echo $fila["id_orden"]; ?></td>
-                <td><?php echo $fila["username"]; ?></td>
                 <td><?php echo $fila["titulo"]; ?></td>
                 <td><?php echo $fila["descripcion"]; ?></td>
                 <td><?php echo $fila["precio"]; ?></td>
                 <td><?php echo $fila["fechacompra"]; ?></td>
-                <td>
-                  <form id="cantidad" name="cantidad" method="post" action="php/view-only/actions/add_sales.php?id=<?= $fila['id_compra'] ?>">
-                  <?php 
-                  echo("<select name='amount' class='form-select'>");
-                  $disponible = $fila["cantidad"];
-                  for($i=0;$i<$disponible;$i++){
-                    $i_plus = $i + 1;
-                    if($i==0){echo("<option value='$i_plus' selected>$i_plus</option>");}
-                    else{echo("<option value='$i_plus'>$i_plus</option>");}
-                  } 
-                  echo("</select>");
-                  ?>
-                  </form>
-                </td>
-                <td>                  
-                  <button form="cantidad" class="btn btn-md btn-dark" type="submit">✏️A&ntilde;adir</button>                  
+                <td><?php echo $fila["cantidad"]; ?></td>
+                <td><a href="<?= 'php/view-only/actions/remove_cart.php?id=' . $fila["id"] ?>">🗑️Borrar</a></td>
                 </td>
               </tr>
               <?php
@@ -157,5 +139,11 @@ if ($error) {
         <?php echo $per_page_html; ?>
       </form>
     </div>
+  </div>
+  <form id="go-back" name="go-back" action="php/view-only/actions/goto_sales.php" type="post"></form>
+  <div class="form-group my-3">
+    <form action="php/view-only/actions/facturacion.php" name="facturar" id="facturar" type="post"></form>
+    <button form="facturar" type="submit" class="btn btn-dark">Facturar</button>
+    <button form="go-back" class="btn btn-secondary" type="submit">Regresar al inicio</button>
   </div>
 </div>
