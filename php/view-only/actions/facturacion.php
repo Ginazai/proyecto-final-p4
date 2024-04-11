@@ -29,5 +29,6 @@ foreach($data as $item){
 	$remove_order = $con->prepare("DELETE FROM data_buy WHERE username=:uname");
 	$remove_order->execute([":uname"=>$username]);
 }
+$_SESSION['vista']="factura";
 echo("<script type='application/javascript'>window.location='../../../index.php'</script>");
 ?>

@@ -140,8 +140,8 @@ if ($error) {
       </form>
     </div>
   </div>
-  <form id="go-back" name="go-back" action="php/view-only/actions/goto_sales.php" type="post"></form>
   <div class="form-group my-3">
+    <form id="go-back" name="go-back" action="php/view-only/actions/goto_sales.php" type="post"></form>
     <form action="php/view-only/actions/facturacion.php" name="facturar" id="facturar" type="post"></form>
     <button form="facturar" type="submit" class="btn btn-dark">Facturar</button>
     <button form="go-back" class="btn btn-secondary" type="submit">Regresar al inicio</button>
