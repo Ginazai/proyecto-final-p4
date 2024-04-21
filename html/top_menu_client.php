@@ -2,19 +2,7 @@
 echo(
   "<div class='container'>
     <div class='row my-3'>
-      <div class='col-md-12'>
-        <form method='post' class=''>
-        	<div class='input-group'>
-            <button class='btn btn-dark' type='submit'>Filtrar</button>
-        		<select class='form-select' name='vista'>
-        			<option selected disabled>Seleccione una vista</option>
-  	      		$options
-            </select>
-        	</div>
-        </form>
-    	</div>
-
-    	<div class='col-md-6'>
+    	<div class='col-md-12'>
         <form method='post' class=''>
         	<div class='input-group mr-3'>
             <button type='submit' name='submit' class='btn btn-dark'>Ver resultados</button>

@@ -4,6 +4,8 @@ $config = include 'php/conexion.php';
 
 try {
   $username=$_SESSION['username'];
+  $user_name=$_SESSION['user_name'];
+  $date=date("d-m-y");
 
   $sentencia = $con->prepare("SELECT * FROM data_fact where username=:uname");
   $sentencia->execute([":uname"=>$username]);
@@ -38,13 +40,16 @@ if ($error) {
   <div class="row">
     <div class="col-md-6">
       <h2 class="mt-3"><?= $titulo ?></h2>
-      <table class="table">
+      <h5 class="my-1"><?= "Factura #: " ?></h5>
+      <h5 class="my-1"><?= "Nombre del cliente: " . $user_name ?></h5>
+      <h5 class="my-1"><?= "Fecha: " . $date ?></h5>
+      <table class="table table-hover" style="background: url('<?= $logo ?>') center cover no-repeat;">
         <thead>
           <tr>
-            <th>#</th>
             <th>Articulo</th>
             <th>Cantidad</th>
             <th>Precio</th>
+            <th>Total</th>
           </tr>
         </thead>
         <tbody>
@@ -54,19 +59,19 @@ if ($error) {
             foreach ($detalles as $producto) {
               ?>
               <tr>
-                <td><?php echo $producto["id_fact"]; ?></td>
                 <td><?php echo $producto["titulo"]; ?></td>
                 <td><?php echo $producto["cantidad"]; ?></td>
                 <td><?php echo $producto["precio"]; ?></td>
+                <td><?php echo $producto["precio"] * $producto["cantidad"]; ?></td>
               </tr>
               <?php
-              $total+=$producto["precio"];
+              $total+=$producto["precio"]*$producto['cantidad'];
             }
             $itbms=$total*0.07;
           }
           ?>
           <tr>
-            <td><b>Sub-total:</b></td>
+            <td><b>Total:</b></td>
             <td></td>
             <td></td>
             <td><b><?= round($total, 2); ?></b></td>
@@ -78,7 +83,7 @@ if ($error) {
             <td><b><?= round($itbms, 2); ?></b></td>
           </tr>
           <tr>
-            <td><b>Total:</b></td>
+            <td><b>Sub-total:</b></td>
             <td></td>
             <td></td>
             <td><b><?= round($total+$itbms, 2); ?></b></td>

@@ -53,15 +53,6 @@ try {
 }
 
 $titulo = isset($_POST['compras']) ? 'Lista de articulos (' . $_POST['compras'] . ')' : 'Lista de articulos ';
-
-//navbar url variable path
-$index_url = "../../index.php";
-$home_url = "../../home.php";
-$customer_url = "vista_cliente.php";
-$ticket_url = "ticket/crear_ticket.php";
-$user_url = "../usuario/crear_usuario.php";
-$category_url = "../categoria/crear_categoria.php";
-$logout_url = "../logout.php";
 ?>
 
 <?php
