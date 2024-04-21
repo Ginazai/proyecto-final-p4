@@ -40,7 +40,7 @@
               <?php if(isset($_SESSION["user_id"])):?>
                 <?php if(in_array(2, $_SESSION['Roles'])&&!in_array(1, $_SESSION['Roles'])&&
                 !in_array(6, $_SESSION['Roles'])):?>
-                <li class='nav-item'><a class='nav-link active text-light' href='<?= $customer_url ?>'>Compras</a></li>
+                <li class='nav-item'><a class='nav-link active text-light' href='<?= $customer_url ?>'>Catalogo</a></li>
                 <?php endif;?>
                 <?php if(in_array(6, $_SESSION['Roles']) && !in_array(1, $_SESSION['Roles'])):?>
                 <li class='nav-item'><a class='nav-link active text-light' href='<?= $index_url ?>'>Admin Compra</a></li>

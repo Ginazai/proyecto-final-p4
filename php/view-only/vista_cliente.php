@@ -52,7 +52,7 @@ try {
   $error= $error->getMessage();
 }
 
-$titulo = isset($_POST['compras']) ? 'Lista de articulos (' . $_POST['compras'] . ')' : 'Lista de articulos ';
+$titulo = isset($_POST['compras']) ? 'Lista de articulos (' . $_POST['compras'] . '):' : 'Lista de articulos:';
 ?>
 
 <?php
@@ -90,11 +90,9 @@ if ($error) {
       }
       ?> 
       <h2 class="mt-3"><?= $titulo ?><form id="vista" name="vista" type="post" action="php/view-only/actions/goto_cart.php"><button type="submit" class="btn btn-dark float-end">Carrito</button></form></h2>
-      <table class="table text-center">
+      <table class="table table-hover text-center">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Username</th>
             <th>Titulo</th>
             <th>Descripcion</th>
             <th>Precio</th>
@@ -111,8 +109,6 @@ if ($error) {
               //if($fila['id'] == $_SESSION['user_id']) {continue;}
               ?>
               <tr>
-                <td><?php echo $fila["id_compra"]; ?></td>
-                <td><?php echo $fila["username"]; ?></td>
                 <td><?php echo $fila["titulo"]; ?></td>
                 <td><?php echo $fila["descripcion"]; ?></td>
                 <td><?php echo $fila["precio"]; ?></td>
@@ -129,7 +125,7 @@ if ($error) {
                   } 
                   echo("</select>");
                   ?>
-                    <button class="btn btn-md btn-dark" type="submit">✏️A&ntilde;adir</button>                  
+                    <button class="btn btn-md btn-dark" type="submit">+ a&ntilde;adir al carrito</button>                  
                   </form>
                 </td>
                 <td>                  
@@ -150,4 +146,3 @@ if ($error) {
     </div>
   </div>
 </div>
-<!-- id buy: fecha+nombredeusuario; video en youtube -->

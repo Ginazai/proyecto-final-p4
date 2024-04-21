@@ -117,24 +117,47 @@ CREATE TABLE data_sales(
     cantidad int not null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ---------------------------------------------
-CREATE TABLE data_buy(
-	id int primary key auto_increment not null,
+CREATE TABLE orders(
 	id_orden varchar(50) not null,
-    titulo varchar(300) not null, 
-    descripcion varchar(300),
-    precio float not null,
+	id_item int auto_increment primary key not null,
+	id_prod int not null,
+
+	constraint fk_id_prod_order
+	foreign key (id_prod)
+	references data_sales (id_compra)
+	on delete cascade
+	on update cascade,
+
+	cantidad int not null,
     username varchar(30) not null,
-    fechacompra date not null,
-    cantidad int not null
+    fechacompra date not null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ---------------------------------------------
-CREATE TABLE data_fact(
-	id int primary key auto_increment not null,
-	id_fact varchar(50) not null,
-    titulo varchar(300) not null, 
-    descripcion varchar(300),
-    precio float not null,
+CREATE TABLE receipt_list(
+	id_list varchar(50) not null,
+	id_prod int not null,
+
+	constraint fk_id_list_receipt
+	foreign key (id_list)
+	references receipt (id)
+	on delete cascade
+	on update cascade,
+
+	constraint fk_id_prod_receipt
+	foreign key (id_prod)
+	references data_sales (id_compra)
+	on delete cascade
+	on update cascade,
+
+    precio float not null, 
+    cantidad int not null,
+    username varchar(30) not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+---------------------------------------------
+CREATE TABLE receipt(
+	id int auto_increment primary key not null,
+	id_list varchar(50) not null,
+    monto float not null,
     username varchar(30) not null,
-    fechacompra date not null,
-    cantidad int not null
+    fechacompra date not null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

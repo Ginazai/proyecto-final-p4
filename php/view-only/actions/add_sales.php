@@ -10,9 +10,6 @@ if(isset($_POST)){
 	$get_amount->execute([':id' => $id_compra]);
 	$article = $get_amount->fetchAll()[0]; 
 	//grabbing data
-	$titulo = $article['titulo'];
-	$descripcion = $article['descripcion'];
-	$precio = $article['precio'];
 	$amount = $article['cantidad'];
 
 	if($amount > 0){
@@ -27,14 +24,12 @@ if(isset($_POST)){
 		$username = $_SESSION['username'];
 		$date = date("Y-m-d");  
 		$order_id = $date . "-" . $username;
-		$cart_insert = $con->prepare("INSERT INTO data_buy (id_orden, titulo, descripcion, precio, username, fechacompra, cantidad) VALUES (:order,:title,:description,:price,:username,NOW(),:n_amount)");
+		$cart_insert = $con->prepare("INSERT INTO orders (id_orden, id_prod, cantidad, username, fechacompra) VALUES (:order,:prod,:cant,:username,NOW())");
 		$cart_insert->execute([
 			':order' => $order_id,
-			':title' => $titulo,
-			':description' => $descripcion,
-			':price' => $precio,
+			':prod' => $id_compra,
+			':cant' => $amount_selected,
 			':username' => $username,
-			':n_amount' => $amount_selected
 		]);
 	echo("<script type='application/javascript'>window.location='../../../index.php';</script>");
 	} else {

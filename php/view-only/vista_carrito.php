@@ -14,7 +14,12 @@ try {
   }
   $limit=" limit " . $start . "," . N_RGT;
 
-  $consultaSQL = "SELECT * FROM data_buy WHERE username=:uname";
+  $consultaSQL = "SELECT orders.cantidad, orders.id_item, data_sales.titulo,
+                  data_sales.descripcion, data_sales.precio, 
+                  data_sales.id_compra FROM orders
+                  RIGHT JOIN data_sales
+                  ON data_sales.id_compra = orders.id_prod 
+                  WHERE orders.username=:uname";
   $pagination_statement = $con->prepare($consultaSQL);
   $pagination_statement->execute([":uname"=>$username]);
 
@@ -100,11 +105,9 @@ if ($error) {
       <table class="table">
         <thead>
           <tr>
-            <th>#ID-orden</th>
             <th>Titulo</th>
             <th>Descripcion</th>
             <th>Precio</th>
-            <th>Fecha de compra</th>
             <th>Cantidad</th>
             <th>Accion</th>
           </tr>
@@ -118,13 +121,11 @@ if ($error) {
               //if($fila['id'] == $_SESSION['user_id']) {continue;}
               ?>
               <tr>
-                <td><?php echo $fila["id_orden"]; ?></td>
                 <td><?php echo $fila["titulo"]; ?></td>
                 <td><?php echo $fila["descripcion"]; ?></td>
                 <td><?php echo $fila["precio"]; ?></td>
-                <td><?php echo $fila["fechacompra"]; ?></td>
                 <td><?php echo $fila["cantidad"]; ?></td>
-                <td><a href="<?= 'php/view-only/actions/remove_cart.php?id=' . $fila["id"] ?>">🗑️Borrar</a></td>
+                <td><a href="<?= 'php/view-only/actions/remove_cart.php?id=' . $fila["id_item"] ?>">🗑️Borrar</a></td>
                 </td>
               </tr>
               <?php

@@ -3,12 +3,18 @@ $error = false;
 $config = include 'php/conexion.php';
 
 try {
+  date_default_timezone_set("America/Panama");
   $username=$_SESSION['username'];
   $user_name=$_SESSION['user_name'];
   $date=date("d-m-y");
+  $date_2 = date("Y-m-d");  
+  $sale_id = $date_2 . "-" . $username;
 
-  $sentencia = $con->prepare("SELECT * FROM data_fact where username=:uname");
-  $sentencia->execute([":uname"=>$username]);
+  $sentencia = $con->prepare("SELECT receipt_list.cantidad, receipt_list.precio,
+                              data_sales.titulo, data_sales.precio FROM receipt_list 
+                              RIGHT JOIN data_sales ON receipt_list.id_prod = data_sales.id_compra
+                              where receipt_list.id_list=:ilist");
+  $sentencia->execute([":ilist"=>$sale_id]);
 
   $detalles = $sentencia->fetchAll();
 
@@ -40,7 +46,7 @@ if ($error) {
   <div class="row">
     <div class="col-md-6">
       <h2 class="mt-3"><?= $titulo ?></h2>
-      <h5 class="my-1"><?= "Factura #: " ?></h5>
+      <h5 class="my-1"><?= "Factura #: " . $sale_id?></h5>
       <h5 class="my-1"><?= "Nombre del cliente: " . $user_name ?></h5>
       <h5 class="my-1"><?= "Fecha: " . $date ?></h5>
       <table class="table table-hover" style="background: url('<?= $logo ?>') center cover no-repeat;">
