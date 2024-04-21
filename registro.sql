@@ -159,5 +159,5 @@ CREATE TABLE receipt(
 	id_list varchar(50) not null,
     monto float not null,
     username varchar(30) not null,
-    fechacompra date not null
+    fechacompra timestamp not null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

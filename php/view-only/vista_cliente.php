@@ -1,5 +1,5 @@
 <?php
-define("N_RGT", 5);
+define("N_RGT", 2);
 $config = include 'php/conexion.php';
 
 try {
@@ -89,7 +89,15 @@ if ($error) {
         <?php
       }
       ?> 
-      <h2 class="mt-3"><?= $titulo ?><form id="vista" name="vista" type="post" action="php/view-only/actions/goto_cart.php"><button type="submit" class="btn btn-dark float-end">Carrito</button></form></h2>
+      <h2 class="mt-3"><?= $titulo ?></h2>
+      <div class="row">
+        <form class="my-1" id="vista" name="vista" type="post" action="php/view-only/actions/goto_cart.php">
+          <button type="submit" class="btn btn-dark my-0">Carrito</button>
+        </form>
+        <form class="my-1" id="vista" name="vista" type="post" action="php/view-only/actions/goto_history.php">
+          <button type="submit" class="btn btn-dark my-0">Historial</button>
+        </form>
+      </div>
       <table class="table table-hover text-center">
         <thead>
           <tr>

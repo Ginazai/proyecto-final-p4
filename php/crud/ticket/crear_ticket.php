@@ -36,7 +36,7 @@ $category_url = "../categoria/crear_categoria.php";
 $logout_url = "../../logout.php";
 ?>
 
-<?php include '../../navbar.php'; ?>
+<?php include '../../../html/navbar.php'; ?>
 
 <?php
 if (isset($resultado)) {

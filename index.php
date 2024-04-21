@@ -44,6 +44,8 @@ $logout_url = "php/logout.php";
 			$_SESSION['render']=require_once "php/view-only/vista_carrito.php"; $_SESSION['vista'] = $vista;}
 		elseif($vista=="factura"){
 			$_SESSION['render']=require_once "php/view-only/vista_factura.php"; $_SESSION['vista'] = $vista;}
+		elseif($vista=="historial"){
+			$_SESSION['render']=require_once "php/view-only/vista_historial.php"; $_SESSION['vista'] = $vista;}
 		else {
 				$_SESSION['render']=require_once "php/view-only/vista_cliente.php"; $_SESSION['vista'] = $vista;}
 	}

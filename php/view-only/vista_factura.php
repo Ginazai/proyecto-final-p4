@@ -10,11 +10,13 @@ try {
   $date_2 = date("Y-m-d");  
   $sale_id = $date_2 . "-" . $username;
 
+  $last_receipt=$_SESSION['last_receipt'];
+
   $sentencia = $con->prepare("SELECT receipt_list.cantidad, receipt_list.precio,
                               data_sales.titulo, data_sales.precio FROM receipt_list 
                               RIGHT JOIN data_sales ON receipt_list.id_prod = data_sales.id_compra
-                              where receipt_list.id_list=:ilist");
-  $sentencia->execute([":ilist"=>$sale_id]);
+                              where receipt_list.id_receipt=:ilist");
+  $sentencia->execute([":ilist"=>$last_receipt]);
 
   $detalles = $sentencia->fetchAll();
 
