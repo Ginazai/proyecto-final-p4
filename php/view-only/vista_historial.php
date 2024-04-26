@@ -51,8 +51,9 @@ if ($error) {
       <div class="accordion my-3" id="accordion-data-<?= $resultado['id'] ?>">
         <div class="accordion-item">
           <h2 class="accordion-header w-100">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<?=$resultado['id']?>" aria-expanded="false" aria-controls="collapseTwo">
-              <?= $fecha ?>
+            <button class="btn btn-dark btn-sm m-2" type="submit"><a class="text-white" href="php/view-only/actions/create_pdf.php?id_factura=<?= $id ?>">Descargar factura</a></button>
+            <button class="accordion-button p-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<?=$resultado['id']?>" aria-expanded="false" aria-controls="collapseTwo">
+              <?= "(" . $id . ") ". $fecha ?>
             </button>
           </h2>
           <div id="collapse-<?=$resultado['id']?>" class="accordion-collapse collapse" data-bs-parent="#accordion-data-<?= $resultado['id'] ?>">
@@ -104,7 +105,7 @@ if ($error) {
                   <td><b>ITBMS:</b></td>
                   <td></td>
                   <td></td>
-                  <td><b><?= round($subtotal, 2); ?></b></td>
+                  <td><b><?= round($itbms, 2); ?></b></td>
                 </tr>
                 <tr>
                   <td><b>Sub-total:</b></td>

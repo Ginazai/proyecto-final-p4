@@ -28,7 +28,6 @@ if(isset($_POST)){
 				$fecha=$row['fechacompra'];
 
 				if($fecha == $date){
-					echo("date == fecha" . "<br>");
 					/**
 					 * Remove amount from inventory * */
 					$new_amount = $amount - $amount_selected;
@@ -44,7 +43,6 @@ if(isset($_POST)){
 					]);
 					break;
 				} else {
-					echo("date != fecha" . "<br>");
 					$clear=$con->prepare("DELETE FROM orders WHERE username=:uname");
 					$clear->execute([":uname"=>$username]);
 
@@ -66,7 +64,6 @@ if(isset($_POST)){
 			}
 
 		} else {
-			echo("amount <= 0" . "<br>");
 			/**
 			 * Remove amount from inventory * */
 			$new_amount = $amount - $amount_selected;

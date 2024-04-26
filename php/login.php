@@ -10,8 +10,8 @@ if(!empty($_POST)){
 			
 				$user_id=null;
 				$user_role=array();
-				$query= $con->prepare("SELECT * FROM user WHERE username = :un OR email = :un and password = :pass");
-				$query->execute([':un' => $u_name, ':pass' => $pwd]);
+				$query= $con->prepare("SELECT * FROM user WHERE email = :em and password = :pass or username = :un and password = :pass");
+				$query->execute([':un' => $u_name, ':em' => $u_name, ':pass' => $pwd]);
 				while ($r=$query->fetch(PDO::FETCH_ASSOC)) {
 					$user_id=$r["id"];
 					$user_name=$r["fullname"];

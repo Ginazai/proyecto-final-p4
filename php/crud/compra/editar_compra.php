@@ -23,6 +23,7 @@ if (!isset($_GET['id'])) {
 
   $username = $_SESSION['username'];
   $data_before = array(
+    "imagen" => $compras['image'],
     "username" => $username,
     "titulo" => $compras['titulo'],
     "descripcion" => $compras['descripcion'],
@@ -35,7 +36,16 @@ if (isset($_POST['submit'])) {
   try {
     $id = $_GET['id'];
 
+    if($_FILES['upload-image']['tmp_name']){
+      $image=$_FILES['upload-image']['tmp_name'];
+      $image_data=file_get_contents($image);
+      $base64_data=base64_encode($image_data);
+    } else {
+      $base64_data=null;
+    }
+
     $data_after = array(
+      "image" => $base64_data,
       "username" => $username,
       "titulo" => $_POST['titulo'],
       "descripcion" => $_POST['desc'],
@@ -61,9 +71,10 @@ if (isset($_POST['submit'])) {
       $resultado['advertencia'] = false;
       $resultado['mensaje'] = "";
 
-      $consulta = $con->prepare("UPDATE data_sales SET titulo = :title, descripcion = :description,
+      $consulta = $con->prepare("UPDATE data_sales SET image = :img, titulo = :title, descripcion = :description,
         precio = :price, fechacompra = NOW(), cantidad = :amount WHERE id_compra = :id");
       $consulta->execute(array(
+        ':img' => $base64_data,
         ':id' => $id,
         ':title' => $_POST['titulo'],
         ':description' => $_POST['desc'],
@@ -148,7 +159,7 @@ if (isset($compras) && $compras) {
         <h2 class="mt-4">Editando el articulo: <?= $compras['titulo'] ?></h2>
         <hr>
     <!--------------------------Add Form -------------------------->
-        <form id='add' class='row g-3' role='form' method='post'>
+        <form enctype="multipart/form-data" id='add' class='row g-3' role='form' method='post'>
 
           <div class='col-12 form-floating'>
               <input type='text' class='form-control' id='titulo' name='titulo' placeholder='Titulo' value="<?=$compras['titulo']?>">
@@ -169,6 +180,12 @@ if (isset($compras) && $compras) {
             <input type='number' class='form-control' id='cantidad' name='cantidad' placeholder='Cantidad' value="<?=$compras['cantidad']?>">
             <label for='cantidad'>Cantidad</label>
           </div>
+
+          <div class="input-group mb-3">
+              <input type="file" class="form-control" name="upload-image" id="upload-image">
+              <label class="input-group-text" for="image">Imagen</label>
+            </div>
+
           <div class="form-group my-3">
             <input type="submit" name="submit" class="btn btn-dark" value="Actualizar">
             <a class="btn btn-secondary" href="../../../index.php">Regresar al inicio</a>

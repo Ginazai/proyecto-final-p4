@@ -95,6 +95,7 @@ if ($error) {
       <table class="table">
         <thead>
           <tr>
+            <th></th>
             <th>#</th>
             <th>Username</th>
             <th>Titulo</th>
@@ -114,6 +115,7 @@ if ($error) {
               //if($fila['id'] == $_SESSION['user_id']) {continue;}
               ?>
               <tr>
+                <td><img width="90px" height="75px" src="data:image/jpg;base64, <?= $fila['image'] ?>"</td>
                 <td><?php echo $fila["id_compra"]; ?></td>
                 <td><?php echo $fila["username"]; ?></td>
                 <td><?php echo $fila["titulo"]; ?></td>
@@ -150,8 +152,8 @@ if ($error) {
       <div class='modal-body'>
         <div class='container-fluid justify-content-center form-signin'>
     <!--------------------------Add Form -------------------------->
-          <form id='add' class='row g-3' role='form' name='registro' action='php/crud/compra/crear_compra.php' method='post'>
-
+          <form enctype="multipart/form-data" id='add' class='row g-3' role='form' name='compra' action='php/crud/compra/crear_compra.php' method='post'>
+           
             <div class='col-12 form-floating'>
                 <input type='text' class='form-control' id='titulo' name='titulo' placeholder='Titulo'>
                 <label for='titulo'>Titulo</label>
@@ -170,6 +172,11 @@ if ($error) {
             <div class='col-12 form-floating'>
               <input type='number' class='form-control' id='cantidad' name='cantidad' placeholder='Cantidad'>
               <label for='cantidad'>Cantidad</label>
+            </div>
+
+            <div class="input-group mb-3">
+              <input type="file" class="form-control" name="upload-image" id="upload-image">
+              <label class="input-group-text" for="image">Imagen</label>
             </div>
           </form>
 <!--------------------------Add Form -------------------------->

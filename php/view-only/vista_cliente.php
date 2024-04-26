@@ -1,5 +1,5 @@
 <?php
-define("N_RGT", 2);
+define("N_RGT", 3);
 $config = include 'php/conexion.php';
 
 try {
@@ -101,10 +101,10 @@ if ($error) {
       <table class="table table-hover text-center">
         <thead>
           <tr>
+            <th></th>
             <th>Titulo</th>
             <th>Descripcion</th>
             <th>Precio</th>
-            <th>Fecha de compra</th>
             <th>A&ntilde;adir al carrito</th>
           </tr>
         </thead>
@@ -117,10 +117,10 @@ if ($error) {
               //if($fila['id'] == $_SESSION['user_id']) {continue;}
               ?>
               <tr>
+                <td><img width="90px" height="75px" src="data:image/jpg;base64, <?= $fila["image"] ?>"></td>
                 <td><?php echo $fila["titulo"]; ?></td>
                 <td><?php echo $fila["descripcion"]; ?></td>
                 <td><?php echo $fila["precio"]; ?></td>
-                <td><?php echo $fila["fechacompra"]; ?></td>
                 <td>
                   <form id="cantidad" name="cantidad" method="post" action="php/view-only/actions/add_sales.php?id=<?= $fila['id_compra'] ?>">
                   <?php 
