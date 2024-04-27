@@ -92,6 +92,7 @@ if ($error) {
       ?> 
       <h2 class="mt-3"><?= $titulo ?></h2>
       <button class='btn btn-dark' type='submit' data-bs-toggle='modal' data-bs-target='#add-compra'>+ Agregar</button>
+      <button class="btn btn-dark" type="submit"><a class="text-white" href="php/crud/compra/actions/reporte_ventas.php">Generar Reporte</a></button>
       <table class="table">
         <thead>
           <tr>
@@ -115,7 +116,7 @@ if ($error) {
               //if($fila['id'] == $_SESSION['user_id']) {continue;}
               ?>
               <tr>
-                <td><img width="90px" height="75px" src="data:image/jpg;base64, <?= $fila['image'] ?>"</td>
+                <td><img width="25%" height="25%" src="data:image/jpg;base64, <?= $fila['image'] ?>"</td>
                 <td><?php echo $fila["id_compra"]; ?></td>
                 <td><?php echo $fila["username"]; ?></td>
                 <td><?php echo $fila["titulo"]; ?></td>

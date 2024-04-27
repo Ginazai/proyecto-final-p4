@@ -1,5 +1,5 @@
 <?php
-define("N_RGT", 3);
+define("N_RGT", 5);
 $config = include 'php/conexion.php';
 
 try {
@@ -117,7 +117,7 @@ if ($error) {
               //if($fila['id'] == $_SESSION['user_id']) {continue;}
               ?>
               <tr>
-                <td><img width="90px" height="75px" src="data:image/jpg;base64, <?= $fila["image"] ?>"></td>
+                <td><img width="25%" height="25%" src="data:image/jpg;base64, <?= $fila["image"] ?>"></td>
                 <td><?php echo $fila["titulo"]; ?></td>
                 <td><?php echo $fila["descripcion"]; ?></td>
                 <td><?php echo $fila["precio"]; ?></td>
